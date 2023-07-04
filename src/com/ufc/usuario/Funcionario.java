@@ -1,7 +1,7 @@
 package com.ufc.usuario;
 
 public class Funcionario extends UsuarioAbstrato{
-  protected String departamento;
+  private String departamento;
   private Double taxaMulta = 0.5;
 
   public Funcionario(String matricula, String departamento) {
@@ -20,5 +20,9 @@ public class Funcionario extends UsuarioAbstrato{
 
     public String getDepartamento(){
     return this.departamento;
+  }
+
+  public Double getMulta(){
+    return this.taxaMulta;
   }
 }

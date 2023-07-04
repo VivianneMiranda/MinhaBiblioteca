@@ -1,8 +1,8 @@
 package com.ufc.usuario;
 
 public class Aluno extends UsuarioAbstrato{
-  protected String curso;
-  private Double taxaMulta;
+  private String curso;
+  private Double taxaMulta = 0.2;
 
   public Aluno(String matricula, String curso) {
     super(matricula);
@@ -10,10 +10,18 @@ public class Aluno extends UsuarioAbstrato{
   }
 
   public void setMulta(Double valor){
-    this.taxaMulta = valor;
+    if (valor < 0.0){
+
+    }else{
+      this.taxaMulta = valor;
+    }
   }
 
   public String getCurso(){
     return this.curso;
+  }
+
+  public Double getMulta(){
+    return this.taxaMulta;
   }
 }

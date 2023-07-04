@@ -15,12 +15,52 @@ public abstract class UsuarioAbstrato {
     this.id = createId();
   }
 
-  public void atualizarInformacoes(String nome, String email, String senha, String matricula, String telefone){
-    this.email = email;
+  public String getNome(){
+    return this.nome;
+  }
+
+  public void setNome(String nome){
     this.nome = nome;
-    this.senha = senha;
+  }
+
+  public String getMatricula(){
+    return this.matricula;
+  }
+
+  public void setMatricula(String matricula){
     this.matricula = matricula;
+  }
+
+public String getSenha(){
+    return this.senha;
+  }
+
+  public void setSenha(String senha){
+    this.senha = senha;
+  }
+
+public String getEmail(){
+    return this.email;
+  }
+
+  public void setEmail(String email){
+    this.email = email;
+  }
+    
+  public String getTelefone(){
+    return this.telefone;
+  }
+
+  public void setTelefone(String telefone){
     this.telefone = telefone;
+  }
+  
+  public void atualizarInformacoes(String nome, String email, String senha, String matricula, String telefone){
+    setEmail(email);
+    setNome(nome);
+    setSenha(senha);
+    setMatricula(matricula);
+    setTelefone(telefone);
   }
 
   private Long createId(){
