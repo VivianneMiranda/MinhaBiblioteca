@@ -1,8 +1,9 @@
 package com.ufc.usuario;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public abstract class UsuarioAbstrato {
+public abstract class UsuarioAbstrato implements Serializable{
   protected Long id;
   protected String nome;
   protected String matricula;

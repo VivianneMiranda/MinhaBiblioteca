@@ -1,14 +1,15 @@
 package com.ufc;
 
 import com.ufc.usuario.Aluno;
+import com.ufc.usuario.Funcionario;
 import com.ufc.usuario.excecao.VNException;
+import com.ufc.usuario.repositorio.RepositorioUsuario;
+import com.ufc.usuario.repositorio.excecao.UJCException;
+import com.ufc.usuario.repositorio.excecao.UNCException;
 
 public class Main {
 
-    public static void main(String[] args) throws VNException {
-        Aluno aluno = new Aluno("guilherme","teste@teste.com","asas", "28288-x", "919921912", "comp");
-        System.out.println(aluno.getCurso());
-        aluno.setMulta(0.4);
-        System.out.println(aluno.getMulta());
+    public static void main(String[] args) throws VNException, UJCException, UNCException {
+
     }
 }
