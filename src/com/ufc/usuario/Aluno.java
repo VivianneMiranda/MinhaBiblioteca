@@ -1,5 +1,7 @@
 package com.ufc.usuario;
 
+import com.ufc.usuario.excecao.VNException;
+
 public class Aluno extends UsuarioAbstrato{
   private String curso;
   private Double taxaMulta = 0.2;
@@ -9,12 +11,13 @@ public class Aluno extends UsuarioAbstrato{
     this.curso = curso;
   }
 
-  public void setMulta(Double valor){
+  public void setMulta(Double valor) throws VNException{
     if (valor < 0.0){
-
-    }else{
-      this.taxaMulta = valor;
+      throw new VNException(this.matricula, valor);
     }
+    
+      this.taxaMulta = valor;
+
   }
 
   public String getCurso(){
