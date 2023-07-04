@@ -10,8 +10,12 @@ public abstract class UsuarioAbstrato {
   protected String email;
   protected String telefone;
 
-  public UsuarioAbstrato(String matricula){
-    this.matricula = matricula;
+  public UsuarioAbstrato(String nome, String email, String senha, String matricula, String telefone){
+    setEmail(email);
+    setNome(nome);
+    setSenha(senha);
+    setMatricula(matricula);
+    setTelefone(telefone);
     this.id = createId();
   }
 
@@ -54,20 +58,11 @@ public String getEmail(){
   public void setTelefone(String telefone){
     this.telefone = telefone;
   }
-  
-  public void atualizarInformacoes(String nome, String email, String senha, String matricula, String telefone){
-    setEmail(email);
-    setNome(nome);
-    setSenha(senha);
-    setMatricula(matricula);
-    setTelefone(telefone);
-  }
 
   private Long createId(){
     Date Date=new Date();
     long milliSeconds = Date.getTime();
-    String strLong = Long.toString(milliSeconds);
-    System.out.println(strLong);
+    /* String strLong = Long.toString(milliSeconds); */
     return milliSeconds;
   }
 }

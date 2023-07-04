@@ -6,8 +6,8 @@ public class Aluno extends UsuarioAbstrato{
   private String curso;
   private Double taxaMulta = 0.2;
 
-  public Aluno(String matricula, String curso) {
-    super(matricula);
+  public Aluno(String nome, String email, String senha, String matricula, String telefone, String curso) {
+    super(nome,email,senha,matricula,telefone);
     this.curso = curso;
   }
 
@@ -15,7 +15,7 @@ public class Aluno extends UsuarioAbstrato{
     if (valor < 0.0){
       throw new VNException(this.matricula, valor);
     }
-    
+
       this.taxaMulta = valor;
 
   }

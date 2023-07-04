@@ -6,8 +6,8 @@ public class Funcionario extends UsuarioAbstrato{
   private String departamento;
   private Double taxaMulta = 0.5;
 
-  public Funcionario(String matricula, String departamento) {
-    super(matricula);
+  public Funcionario(String nome, String email, String senha, String matricula, String telefone, String departamento) {
+    super(nome,email,senha,matricula,telefone);
     this.departamento = departamento;
   }
 
