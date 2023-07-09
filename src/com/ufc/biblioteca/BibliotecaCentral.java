@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Vector;
 
 import com.ufc.biblioteca.excecao.CIException;
-import com.ufc.biblioteca.excecao.EIException;
 import com.ufc.livro.Livro;
 import com.ufc.livro.repositorio.LivroRepositorio;
 import com.ufc.livro.repositorio.excecao.LJCException;
@@ -129,6 +128,19 @@ public class BibliotecaCentral implements IBiblioteca {
 
     public List<Emprestimo> getEmprestimos() {
         return emprestimos;
+    }
+
+    public double ConsultarMulta(UsuarioAbstrato usuario) {
+        double multaTotal = 0;
+
+        for (Emprestimo emprestimo : emprestimos) {
+            if (emprestimo.getUsuario().equals(usuario)) {
+                double multa = emprestimo.calcularMulta();
+                multaTotal += multa;
+            }
+        }
+
+        return multaTotal;
     }
 
 }

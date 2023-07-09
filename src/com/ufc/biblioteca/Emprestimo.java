@@ -1,8 +1,11 @@
 package com.ufc.biblioteca;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 import com.ufc.livro.Livro;
+import com.ufc.usuario.Aluno;
+import com.ufc.usuario.Funcionario;
 import com.ufc.usuario.UsuarioAbstrato;
 
 public class Emprestimo {
@@ -35,6 +38,25 @@ public class Emprestimo {
     }
 
     public void setDataDevolucao(LocalDate dataDevolucao) {
-        this.dataDevolucao = dataDevolucao;
+        this.dataDevolucao = dataEmprestimo.plusDays(15);
+    }
+
+    public double calcularMulta() {
+        double valorMultaPorDia = 0.0;
+        
+        if (dataDevolucao.isAfter(LocalDate.now())) {
+            long diasAtraso = ChronoUnit.DAYS.between(dataDevolucao, LocalDate.now());
+            
+            if(usuario instanceof Funcionario){
+                valorMultaPorDia = ((Funcionario) usuario).getMulta();
+            }
+            if(usuario instanceof Aluno){
+                valorMultaPorDia = ((Aluno) usuario).getMulta();
+            }
+            
+            return valorMultaPorDia * diasAtraso;
+        }
+        
+        return 0.0;
     }
 }
