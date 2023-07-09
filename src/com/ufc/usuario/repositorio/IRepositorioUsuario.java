@@ -1,11 +1,15 @@
 package com.ufc.usuario.repositorio;
 
+import com.ufc.usuario.Aluno;
+import com.ufc.usuario.Funcionario;
 import com.ufc.usuario.UsuarioAbstrato;
 import com.ufc.usuario.repositorio.excecao.UJCException;
 import com.ufc.usuario.repositorio.excecao.UNCException;
 
 public interface IRepositorioUsuario {
-  public void cadastrar(UsuarioAbstrato usuario) throws UJCException;
+  public void cadastrarFuncionario(Funcionario usuario) throws UJCException;
+
+  public void cadastrarAluno(Aluno usuario) throws UJCException;
 
   public void remover(String matricula) throws UNCException;
 
