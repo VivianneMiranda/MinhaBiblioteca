@@ -1,6 +1,8 @@
 package com.ufc.gui;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
+
 import javax.swing.*;
 
 import com.ufc.biblioteca.BibliotecaCentral;
@@ -80,7 +82,7 @@ private BibliotecaCentral bCentral;
     entrar.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
       janelaInicial.dispose();
-      abrirjanela13();
+      abrirjanela2();
       
 
       }
@@ -931,9 +933,13 @@ private BibliotecaCentral bCentral;
         } else {
           
           try {
-          /* Livro livro = repoLivros.buscarLivroPorAutor(autor); */
+          List<Livro> livros = repoLivros.buscarLivroPorAutor(autor);
+          if (livros.isEmpty()) {JOptionPane.showMessageDialog(janela14, "O autor não tem livros cadastrados no sistema!",
+              "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+            }
           janela14.dispose();
-          abrirjanela30();
+          abrirjanela30(livros);
           } catch (Exception error) {
             JOptionPane.showMessageDialog(janela14, error.getMessage(),
               "Erro", JOptionPane.ERROR_MESSAGE);
@@ -992,7 +998,7 @@ private BibliotecaCentral bCentral;
               return;
             }
           janela15.dispose();
-          abrirjanela30();
+          abrirjanela17(livro);
           } catch (Exception error) {
             JOptionPane.showMessageDialog(janela15, error.getMessage(),
               "Erro", JOptionPane.ERROR_MESSAGE);
@@ -1051,7 +1057,7 @@ public void abrirjanela16() {
               return;
             }
           janela16.dispose();
-          abrirjanela30();
+          abrirjanela17(livro);
           } catch (Exception error) {
             JOptionPane.showMessageDialog(janela16, error.getMessage(),
               "Erro", JOptionPane.ERROR_MESSAGE);
@@ -1879,7 +1885,9 @@ public void abrirjanela27() {
 
 
 
-  public void abrirjanela30(){
+  public void abrirjanela30(List<Livro> livros){ 
+    
+
   JFrame janela30 = new JFrame("Selecione o livro buscado:");
         janela30.setSize(500, 500);
         janela30.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -1892,20 +1900,26 @@ public void abrirjanela27() {
 
         JComboBox<String> comboBoxLivros = new JComboBox<String>();
         comboBoxLivros.setBounds(50, 60, 300, 20);
-        comboBoxLivros.addItem("Livro 1");
-        comboBoxLivros.addItem("Livro 2");
-        comboBoxLivros.addItem("Livro 3");
-        // Adicione aqui os livros encontrados
+        for (Livro livro : livros) {
+        comboBoxLivros.addItem(livro.getTitulo());
+        }
+
 
         JButton botao = new JButton("Buscar");
         botao.setBounds(150, 100, 120, 40);
         botao.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String livroSelecionado = (String) comboBoxLivros.getSelectedItem();
+                String livroSelecionadoString = (String) comboBoxLivros.getSelectedItem();
+                Livro livroSelecionado = repoLivros.buscarLivroPorTitulo(livroSelecionadoString);
                 if (livroSelecionado != null) {
-                    // Realizar ação de busca do livro
-                    janela30.dispose();
-                    abrirjanela17(livro);
+                    try {
+                      janela30.dispose();
+                    abrirjanela17(livroSelecionado);
+                    } catch (Exception error) {
+                      JOptionPane.showMessageDialog(janela30, error.getMessage(),
+              "Erro", JOptionPane.ERROR_MESSAGE);
+                    }
+                    
                 }
             }
         });
