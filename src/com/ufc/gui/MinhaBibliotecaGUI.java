@@ -4,6 +4,9 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 import com.ufc.biblioteca.BibliotecaCentral;
+import com.ufc.biblioteca.RepositorioEmprestimo;
+import com.ufc.livro.Livro;
+import com.ufc.livro.repositorio.RepositorioLivro;
 import com.ufc.usuario.Aluno;
 import com.ufc.usuario.Funcionario;
 import com.ufc.usuario.UsuarioAbstrato;
@@ -21,16 +24,16 @@ Color fundojanela = new Color(224,255,255);
 Color letra = new Color (0,0,0);
   
 private RepositorioUsuario repoUsuarios;
-/* private RepositorioLivro repoLivros; 
-private RepositorioEmprestimos repoEmprestimos; */
+private RepositorioLivro repoLivros; 
+private RepositorioEmprestimo repoEmprestimos;
 private BibliotecaCentral bCentral;
 
 public MinhaBibliotecaGUI() {
     
     repoUsuarios = new RepositorioUsuario();
-    /* repoLivros = new RepositorioLivros();
-    repoEmprestimos = new RepositorioEmprestimos()
-    bCentral = new BibliotecaCentral(repoUsuarios, repoLivros, repoEmprestimos); */
+    repoLivros = new RepositorioLivro();
+    repoEmprestimos = new RepositorioEmprestimo();
+    bCentral = new BibliotecaCentral(repoUsuarios, repoLivros, repoEmprestimos);
 
     JFrame janelaInicial = new JFrame("Minha Biblioteca");
     janelaInicial.setSize(500, 500);
@@ -75,7 +78,7 @@ public MinhaBibliotecaGUI() {
     entrar.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
       janelaInicial.dispose();
-      abrirjanela7();
+      abrirjanela2();
       
 
       }
@@ -570,8 +573,15 @@ public MinhaBibliotecaGUI() {
         } else {
           
           // Aqui você pode implementar a lógica de autenticação
-          janela9.dispose();
-          abrirjanela10();
+          try{
+            bCentral.login(matricula, senha);
+            janela9.dispose();
+            abrirjanela10();
+          }catch(Exception error){
+            JOptionPane.showMessageDialog(janela9, error.getMessage(),
+              "Erro", JOptionPane.ERROR_MESSAGE);
+          }
+          
         }
       }
     });
@@ -691,12 +701,12 @@ public MinhaBibliotecaGUI() {
         JTextField campoDataPublicacao = new JTextField();
         campoDataPublicacao.setBounds(200, 210, 170, 20);
 
-        JLabel rotuloQuantidadeTotal = new JLabel("Quantidade Total:");
-        rotuloQuantidadeTotal.setFont(new Font("Arial", Font.PLAIN, 12));
-        rotuloQuantidadeTotal.setBounds(50, 240, 170, 20);
+        JLabel rotuloAnoPublicacao = new JLabel("Ano de publicacao:");
+        rotuloAnoPublicacao.setFont(new Font("Arial", Font.PLAIN, 12));
+        rotuloAnoPublicacao.setBounds(50, 240, 170, 20);
 
-        JTextField campoQuantidadeTotal = new JTextField();
-        campoQuantidadeTotal.setBounds(200, 240, 170, 20);
+        JTextField campoAnoPublicacao = new JTextField();
+        campoAnoPublicacao.setBounds(200, 240, 170, 20);
 
         JLabel rotuloQuantidadeDisponivel = new JLabel("Quantidade Disponível:");
         rotuloQuantidadeDisponivel.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -718,11 +728,11 @@ public MinhaBibliotecaGUI() {
                     String email = campoEmail.getText();
                     String editora = campoEditora.getText();
                     String dataPublicacaoString = campoDataPublicacao.getText();
-                    String quantidadeTotalString = campoQuantidadeTotal.getText();
+                    String AnoPublicacaoString = campoAnoPublicacao.getText();
                     String quantidadeDisponivelString = campoQuantidadeDisponivel.getText();
 
                     // Verificar se os campos obrigatórios estão preenchidos
-                    if (idString.isEmpty() || isbn.isEmpty() || quantidadeTotalString.isEmpty() || quantidadeDisponivelString.isEmpty()) {
+                    if (idString.isEmpty() || isbn.isEmpty() || AnoPublicacaoString.isEmpty() || quantidadeDisponivelString.isEmpty()) {
                         JOptionPane.showMessageDialog(janela11, "Por favor, preencha todos os campos obrigatórios.",
                                 "Erro", JOptionPane.ERROR_MESSAGE);
                         return;
@@ -730,10 +740,17 @@ public MinhaBibliotecaGUI() {
 
                     // Converter valores para os tipos corretos
                     int id = Integer.parseInt(idString);
-                    int quantidadeTotal = Integer.parseInt(quantidadeTotalString);
+                    int AnoPublicacao = Integer.parseInt(AnoPublicacaoString);
                     int quantidadeDisponivel = Integer.parseInt(quantidadeDisponivelString);
 
                     // Realizar ação de cadastro aqui...
+                    try {
+                      Livro livro = new Livro(titulo, autor, isbn, editora, AnoPublicacao, quantidadeDisponivel);
+                      bCentral.adicionarLivro(livro);
+                    } catch (Exception error) {
+                      JOptionPane.showMessageDialog(janela11, error.getMessage(),
+                                "Erro", JOptionPane.ERROR_MESSAGE);
+                    }
                     
                     janela11.dispose();
                     abrirjanela12();
@@ -759,8 +776,8 @@ public MinhaBibliotecaGUI() {
         janela11.add(campoEditora);
         janela11.add(rotuloDataPublicacao);
         janela11.add(campoDataPublicacao);
-        janela11.add(rotuloQuantidadeTotal);
-        janela11.add(campoQuantidadeTotal);
+        janela11.add(rotuloAnoPublicacao);
+        janela11.add(campoAnoPublicacao);
         janela11.add(rotuloQuantidadeDisponivel);
         janela11.add(campoQuantidadeDisponivel);
         janela11.add(botaoCadastrar);
@@ -886,11 +903,17 @@ public MinhaBibliotecaGUI() {
               "Erro", JOptionPane.ERROR_MESSAGE);
         } else {
           
-          // Aqui você pode implementar a lógica de autenticação
-          //Caso não encontre o autor fazer: JOptionPane.showMessageDialog(janela14, "Por favor, preencha todos os campos.",
-              //"Erro", JOptionPane.ERROR_MESSAGE);
-          janela14.dispose();
+          try {
+            repoLivros.buscarLivroPorAutor(autor);
+            janela14.dispose();
           abrirjanela17();
+          } catch (Exception error) {
+            JOptionPane.showMessageDialog(janela14, error.getMessage(),
+              "Erro", JOptionPane.ERROR_MESSAGE);
+          }
+          // Aqui você pode implementar a lógica de autenticação
+       
+          
         }
       }
     });
@@ -934,11 +957,14 @@ public MinhaBibliotecaGUI() {
               "Erro", JOptionPane.ERROR_MESSAGE);
         } else {
           
-          // Aqui você pode implementar a lógica de autenticação
-          //Caso não encontre o titulo fazer: JOptionPane.showMessageDialog(janela15, "Por favor, preencha todos os campos.",
-              //"Erro", JOptionPane.ERROR_MESSAGE);
-          janela15.dispose();
+          try {
+            repoLivros.buscarLivroPorTitulo(titulo);
+            janela15.dispose();
           abrirjanela17();
+          } catch (Exception error) {
+            JOptionPane.showMessageDialog(janela15, error.getMessage(),
+              "Erro", JOptionPane.ERROR_MESSAGE);
+          }
         }
       }
     });
@@ -985,11 +1011,14 @@ public void abrirjanela16() {
               "Erro", JOptionPane.ERROR_MESSAGE);
         } else {
           
-          // Aqui você pode implementar a lógica de autenticação
-          //Caso não encontre o isbn fazer: JOptionPane.showMessageDialog(janela16, "Por favor, preencha todos os campos.",
-              //"Erro", JOptionPane.ERROR_MESSAGE);
-          janela16.dispose();
+          try {
+            repoLivros.buscarLivroPorISBN(isbn);
+            janela16.dispose();
           abrirjanela17();
+          } catch (Exception error) {
+            JOptionPane.showMessageDialog(janela16, error.getMessage(),
+              "Erro", JOptionPane.ERROR_MESSAGE);
+          }
         }
       }
     });
@@ -1205,9 +1234,14 @@ public void abrirjanela16() {
               "Erro", JOptionPane.ERROR_MESSAGE);
         } else {
           
-          // Aqui você pode implementar a lógica de autenticação
-          janela19.dispose();
-          abrirjanela20();
+          try{
+            bCentral.login(matricula, senha);
+            janela19.dispose();
+            abrirjanela20();
+          }catch(Exception error){
+            JOptionPane.showMessageDialog(janela19, error.getMessage(),
+              "Erro", JOptionPane.ERROR_MESSAGE);
+          }
         }
       }
     });
