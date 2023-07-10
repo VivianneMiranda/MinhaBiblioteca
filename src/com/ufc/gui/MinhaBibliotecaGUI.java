@@ -144,25 +144,6 @@ private String matriculaUsuario;
       }
     });
 
-    JButton voltar = new JButton("voltar");
-    voltar.setBounds(10, 420, 50, 20);
-    voltar.setFont(new Font("Arial", Font.BOLD, 10));
-    voltar.setForeground(letra);
-    voltar.setBorder(null);
-    voltar.setBackground(fundobotao);
-    voltar.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
-      janelax.dispose();
-      abrirjanelax();
-        
-
-      }
-    });
-    janelaX.getContentPane().add(voltar);
-    
-
-
-
     janela2.getContentPane().setLayout(null);
     janela2.getContentPane().add(opicaoacervo);
     janela2.getContentPane().add(opicaocadastre);
@@ -1748,13 +1729,12 @@ public void abrirjanela21() {
               "Erro", JOptionPane.ERROR_MESSAGE);
         } else {
           
-<<<<<<< HEAD
+
           // Aqui você pode implementar a lógica de autenticação
           //Caso não encontre o titulo fazer: JOptionPane.showMessageDialog(janela22, "Por favor, preencha todos os campos.",
               //"Erro", JOptionPane.ERROR_MESSAGE);
           janela22.dispose();
           abrirjanela31();
-=======
           try {
             Livro livro = repoLivros.buscarLivroPorTitulo(titulo);
             if(livro == null){
@@ -2052,8 +2032,7 @@ public void abrirjanela23() {
         campoQuantidadeDisponivel.setBounds(220, 310, 250, 30);
 
 
-        // Definir valores dos campos de texto
-<<<<<<< HEAD
+        
         
         campoTitulo.setText("Livro Exemplo");
         campoAutor.setText("Autor Exemplo");
@@ -2061,8 +2040,7 @@ public void abrirjanela23() {
         campoEditora.setText("Editora Exemplo");
         campoAnoPublicacao.setText("01/01/2022");
         campoQuantidadeDisponivel.setText("5");
-=======
-/*         campoId.setText("id"); */
+
         campoTitulo.setText(livro.getTitulo());
         campoAutor.setText(livro.getAutor());
         campoISBN.setText(livro.getISBN());
@@ -2071,7 +2049,6 @@ public void abrirjanela23() {
         campoDataPublicacao.setText(Integer.toString(livro.getAnoPublicacao()));
 /*         campoQuantidadeTotal.setText("10"); */
         campoQuantidadeDisponivel.setText(Integer.toString(livro.getQuantidadeDisponivel()));
->>>>>>> cdf7b950feef49e7272bfddaa25086dd2f7c27c1
         JButton voltar = new JButton("voltar");
     voltar.setBounds(10, 420, 50, 20);
     voltar.setFont(new Font("Arial", Font.BOLD, 10));
