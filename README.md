@@ -31,7 +31,7 @@ quantidade de cada um no acervo e listar todos os usuários cadastrados.
 Projeto desenvolvido para a disciplina de Programação Orientada a Objetos.
 
 <p align="center">
-  <img alt="UFC" src="https://github.com/VivianneMiranda/MinhaBiblioteca/blob/main/ufc.jpg" width="100">
+  <img alt="UFC" src="https://github.com/VivianneMiranda/MinhaBiblioteca/blob/main/ufc-logo-universidade.png" width="100">
 </p>
 
 <h4 align="center">Universidade Federal do Ceará - 2023</h4> 
