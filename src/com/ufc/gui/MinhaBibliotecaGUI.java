@@ -591,8 +591,17 @@ private String matriculaUsuario;
           
 
           try{
-            bCentral.login(matricula, senha);
-          janela9.dispose();
+            Boolean login = bCentral.login(matricula, senha);
+            if(login) matriculaUsuario = matricula;
+            String type = repoUsuarios.buscar(matricula).getTipo();
+            
+            if( !type.equals("funcionario")){
+              JOptionPane.showMessageDialog(janela9, "Este usuário não exite!",
+              "Erro", JOptionPane.ERROR_MESSAGE);
+              return;
+            }
+
+            janela9.dispose();
           abrirjanela10();
           }catch(Exception error){
             JOptionPane.showMessageDialog(janela9, error.getMessage(),
@@ -1289,7 +1298,14 @@ public void abrirjanela16() {
           try{
             Boolean login = bCentral.login(matricula, senha);
             if(login) matriculaUsuario = matricula;
+            String type = repoUsuarios.buscar(matricula).getTipo();
             
+      
+            if(type.equals("funcionario")){
+              JOptionPane.showMessageDialog(janela19, "Este usuário não exite!",
+              "Erro", JOptionPane.ERROR_MESSAGE);
+              return;
+            }
           janela19.dispose();
           abrirjanela20();
           }catch(Exception error){
@@ -1340,8 +1356,17 @@ public void abrirjanela16() {
     devolver.setBounds(160, 100, 130, 30);
     devolver.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
+        
+        UsuarioAbstrato user = repoUsuarios.buscar(matriculaUsuario);
+        List<Emprestimo> emprestimosDoUser = repoEmprestimos.getEmprestimosPorUsuario(user);
+        if(emprestimosDoUser.isEmpty()) {
+          JOptionPane.showMessageDialog(janela20, "Este usuário não tem emprestimos feitos.",
+              "Erro", JOptionPane.ERROR_MESSAGE);
+              return;
+        }
+
         janela20.dispose();
-        abrirjanela27();
+        abrirjanela27(emprestimosDoUser);
         
       }
     });
@@ -1754,8 +1779,8 @@ public void abrirjanela23() {
 
   
 
-public void abrirjanela27() {
-        
+public void abrirjanela27(List<Emprestimo> listaEmprestimos) {
+
         JFrame janela27 = new JFrame("Devolução de Livro");
         janela27.setSize(500, 500);
         janela27.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -1768,18 +1793,22 @@ public void abrirjanela27() {
 
         JComboBox<String> comboBoxLivros = new JComboBox<String>();
         comboBoxLivros.setBounds(50, 60, 300, 20);
-        comboBoxLivros.addItem("Livro 1");
-        comboBoxLivros.addItem("Livro 2");
-        comboBoxLivros.addItem("Livro 3");
-        // Adicione aqui os livros emprestados
+        for (Emprestimo emprestimo : listaEmprestimos) {
+          comboBoxLivros.addItem(emprestimo.getLivro().getTitulo());
+        }
 
         JButton botaoDevolver = new JButton("Devolver");
         botaoDevolver.setBounds(150, 100, 120, 40);
         botaoDevolver.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String livroSelecionado = (String) comboBoxLivros.getSelectedItem();
+                String livroSelecionadoString = (String) comboBoxLivros.getSelectedItem();
+                Livro livroSelecionado = repoLivros.buscarLivroPorTitulo(livroSelecionadoString);
+                UsuarioAbstrato user = repoUsuarios.buscar(matriculaUsuario);
+
+
                 if (livroSelecionado != null) {
-                    // Realizar ação de devolução do livro
+                    
+
                     janela27.dispose();
                     abrirjanela28();
                 }
