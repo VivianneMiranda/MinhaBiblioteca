@@ -11,42 +11,64 @@ Color fundobotao = new Color(120,231,255);
 Color fundojanela = new Color(224,255,255);
 Color letra = new Color (0,0,0);
   
-  public MinhaBibliotecaGUI() {
+public MinhaBibliotecaGUI() {
     
     JFrame janelaInicial = new JFrame("Minha Biblioteca");
-    janelaInicial.setSize(600, 600);
+    janelaInicial.setSize(500, 500);
     janelaInicial.setLayout(new BorderLayout());
     janelaInicial.getContentPane().setBackground(fundojanela);
     janelaInicial.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    janelaInicial.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 50));
-
+ 
     
+    int w = janelaInicial.getWidth();
+    int h = janelaInicial.getHeight();
+    
+    JPanel panel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                g.setColor(new Color(168, 108, 209)); // Cor lilás
+                g.fillRect(100, 100, 200, 100); // Desenha o retângulo
+                g.setColor(Color.BLACK);
+                g.setFont(new Font("Arial", Font.BOLD, 20)); // Configura a fonte
+                g.drawString("Minha Biblioteca", 125, 160); // Desenha a frase
+            }
+        };
+
+        // Adiciona o painel à janela
+       
+
 
    
     JLabel rotulo = new JLabel("Biblioteca Central");
-               rotulo.setFont(new Font("Arial", Font.BOLD, 30));
-               rotulo.setBounds(70, 50, 300, 100);
+               rotulo.setFont(new Font("Arial", Font.BOLD, 40));
+               rotulo.setBounds(70, h/4, 400, 100);
                rotulo.setForeground(letra);
-               janelaInicial.add(rotulo);
-
+               
     
 
     JButton entrar = new JButton("Entrar");
-    entrar.setBounds(160, 160, 120, 40);
+    entrar.setBounds(180, 220, 120, 40);
     entrar.setFont(new Font("Arial", Font.BOLD, 20));
     entrar.setForeground(letra);
+    entrar.setBorder(null);
     entrar.setBackground(fundobotao);
     entrar.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
-        janelaInicial.dispose();
-
-        abrirjanela2();
+      janelaInicial.dispose();
+      abrirjanela7();
+      
 
       }
     });
-    
+
+   
     janelaInicial.getContentPane().setLayout(null);
-    janelaInicial.getContentPane().add(entrar);
+    janelaInicial.add(entrar);
+    janelaInicial.add(rotulo);
+
+    //janelaInicial.add(panel);
+    //panel.add(entrar,BorderLayout.CENTER);
 
     janelaInicial.setVisible(true);
   }
@@ -62,12 +84,12 @@ Color letra = new Color (0,0,0);
   public void abrirjanela2() {
 
     JFrame janela2 = new JFrame("janela 2");
-    janela2.setSize(600, 600);
+    janela2.setSize(500, 500);
     janela2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     janela2.getContentPane().setBackground(fundojanela);
 
     JButton opicaoacervo = new JButton("Acervo");
-    opicaoacervo.setBounds(70, 120, 150, 40);
+    opicaoacervo.setBounds(80, 200, 150, 40);
     opicaoacervo.setForeground(letra);
     opicaoacervo.setBackground(fundobotao);
     opicaoacervo.setFont(new Font("Arial", Font.BOLD, 20));
@@ -79,7 +101,7 @@ Color letra = new Color (0,0,0);
     });
 
     JButton opicaocadastre = new JButton("Cadastre-se");
-    opicaocadastre.setBounds(210, 120, 150, 40);
+    opicaocadastre.setBounds(250, 200, 150, 40);
     opicaocadastre.setForeground(letra);
     opicaocadastre.setBackground(fundobotao);
     opicaocadastre.setFont(new Font("Arial", Font.BOLD, 20));
@@ -107,18 +129,22 @@ Color letra = new Color (0,0,0);
   // aluno ou funcionario
   public void abrirjanela3() {
     JFrame janela3 = new JFrame("janela 3");
-    janela3.setSize(600,600);
+    janela3.setSize(500,500);
     janela3.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     janela3.getContentPane().setBackground(fundojanela);
 
-    JLabel comando = new JLabel("Você é Aluno ou Funcionario");
-    comando.setFont(new Font("Arial", Font.BOLD, 20));
-    comando.setBounds(50, 50, 300, 100);
+    JLabel comando = new JLabel("Você é Aluno ou Funcionario ?");
+    comando.setFont(new Font("Arial", Font.BOLD, 30));
+    comando.setBounds(30, 80, 500, 100);
+    comando.setForeground(letra);
 
     janela3.add(comando);
 
     JButton opcaoaluno = new JButton("Aluno");
-    opcaoaluno.setBounds(10, 100, 130, 30);
+    opcaoaluno.setBounds(80, 200, 150, 40);
+    opcaoaluno.setForeground(letra);
+    opcaoaluno.setBackground(fundobotao);
+    opcaoaluno.setFont(new Font("Arial", Font.BOLD, 20));
     opcaoaluno.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
         janela3.dispose();
@@ -127,7 +153,10 @@ Color letra = new Color (0,0,0);
     });
 
     JButton opcaofuncionario = new JButton("Funcionario");
-    opcaofuncionario.setBounds(160, 100, 130, 30);
+    opcaofuncionario.setBounds(250, 200, 150, 40);
+    opcaofuncionario.setForeground(letra);
+    opcaofuncionario.setBackground(fundobotao);
+    opcaofuncionario.setFont(new Font("Arial", Font.BOLD, 20));
     opcaofuncionario.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
         janela3.dispose();
@@ -152,56 +181,59 @@ Color letra = new Color (0,0,0);
 
   public void abrirjanela4() {
     JFrame janela4 = new JFrame("Formulário de Cadastro");
-    janela4.setSize(600,600);
+    janela4.setSize(500,500);
     janela4.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     janela4.getContentPane().setBackground(fundojanela);
     janela4.setLayout(null);
 
     JLabel comando = new JLabel("Preencha o formulário abaixo:");
-    comando.setFont(new Font("Arial", Font.BOLD, 20));
-    comando.setBounds(50, 10, 300, 100);
+    comando.setFont(new Font("Arial", Font.BOLD, 25));
+    comando.setBounds(50, -10, 400, 100);
 
     janela4.add(comando);
 
     JLabel rotuloIdentidade = new JLabel("Identidade:");
-    rotuloIdentidade.setFont(new Font("Arial", Font.PLAIN, 12));
-    rotuloIdentidade.setBounds(50, 30, 100, 20);
+    rotuloIdentidade.setFont(new Font("Arial", Font.BOLD, 20));
+    rotuloIdentidade.setBounds(50, 70, 200, 20);
     JLabel rotuloNome = new JLabel("Nome:");
-    rotuloNome.setFont(new Font("Arial", Font.PLAIN, 12));
-    rotuloNome.setBounds(50, 60, 100, 20);
+    rotuloNome.setFont(new Font("Arial", Font.BOLD, 20));
+    rotuloNome.setBounds(50, 110, 100, 20);
     JLabel rotuloMatricula = new JLabel("Matrícula:");
-    rotuloMatricula.setFont(new Font("Arial", Font.PLAIN, 12));
-    rotuloMatricula.setBounds(50, 90, 100, 20);
+    rotuloMatricula.setFont(new Font("Arial", Font.BOLD, 20));
+    rotuloMatricula.setBounds(50, 150, 100, 20);
     JLabel rotuloSenha = new JLabel("Senha:");
-    rotuloSenha.setFont(new Font("Arial", Font.PLAIN, 12));
-    rotuloSenha.setBounds(50, 120, 100, 20);
+    rotuloSenha.setFont(new Font("Arial", Font.BOLD, 20));
+    rotuloSenha.setBounds(50, 190, 100, 20);
     JLabel rotuloEmail = new JLabel("E-mail:");
-    rotuloEmail.setFont(new Font("Arial", Font.PLAIN, 12));
-    rotuloEmail.setBounds(50, 170, 100, 20);
+    rotuloEmail.setFont(new Font("Arial", Font.BOLD, 20));
+    rotuloEmail.setBounds(50, 230, 100, 20);
     JLabel rotuloTelefone = new JLabel("Telefone:");
-    rotuloTelefone.setFont(new Font("Arial", Font.PLAIN, 12));
-    rotuloTelefone.setBounds(50, 180, 100, 20);
+    rotuloTelefone.setFont(new Font("Arial", Font.BOLD, 20));
+    rotuloTelefone.setBounds(50, 270, 100, 20);
     JLabel rotuloCurso = new JLabel("Curso:");
-    rotuloCurso.setFont(new Font("Arial", Font.PLAIN, 12));
-    rotuloCurso.setBounds(50, 210, 100, 20);
+    rotuloCurso.setFont(new Font("Arial", Font.BOLD, 20));
+    rotuloCurso.setBounds(50, 310, 100, 20);
 
     JTextField campoIdentidade = new JTextField();
-    campoIdentidade.setBounds(170, 30, 200, 20);
+    campoIdentidade.setBounds(170, 70, 300, 30);
     JTextField campoNome = new JTextField();
-    campoNome.setBounds(170, 60, 200, 20);
+    campoNome.setBounds(170, 110, 300, 30);
     JTextField campoMatricula = new JTextField();
-    campoMatricula.setBounds(170, 90, 200, 20);
+    campoMatricula.setBounds(170, 150, 300, 30);
     JTextField campoSenha = new JTextField();
-    campoSenha.setBounds(170, 120, 200, 20);
+    campoSenha.setBounds(170, 190, 300, 30);
     JTextField campoEmail = new JTextField();
-    campoEmail.setBounds(170, 170, 200, 20);
+    campoEmail.setBounds(170, 230, 300, 30);
     JTextField campoTelefone = new JTextField();
-    campoTelefone.setBounds(170, 180, 200, 20);
+    campoTelefone.setBounds(170, 270, 300, 30);
     JTextField campoCurso = new JTextField();
-    campoCurso.setBounds(170, 210, 200, 20);
+    campoCurso.setBounds(170, 310, 300, 30);
 
     JButton botaoEnviar = new JButton("Enviar");
-    botaoEnviar.setBounds(170, 240, 120, 40);
+    botaoEnviar.setBounds(340, 380, 120, 40);
+    botaoEnviar.setFont(new Font("Arial", Font.BOLD, 20));
+    botaoEnviar.setForeground(letra);
+    botaoEnviar.setBackground(fundobotao);
     botaoEnviar.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
         // Verifica se todos os campos estão preenchidos
@@ -246,18 +278,22 @@ Color letra = new Color (0,0,0);
   public void abrirjanela5() {
 
     JFrame janela5 = new JFrame("");
-    janela5.setSize(600,600);
+    janela5.setSize(500,500);
     janela5.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     janela5.getContentPane().setBackground(fundojanela);
 
     JLabel msgaluno = new JLabel("Cadastro realizado com sucesso!");
-    msgaluno.setFont(new Font("Arial", Font.BOLD, 20));
-    msgaluno.setBounds(50, 50, 300, 100);
+    msgaluno.setFont(new Font("Arial", Font.BOLD, 28));
+    msgaluno.setBounds(25, 120, 500, 100);
+    msgaluno.setForeground(letra);
 
     janela5.add(msgaluno);
 
     JButton botaoacervofuncionarios = new JButton("Clique aqui para ser redirecionado ao acervo de alunos");
-    botaoacervofuncionarios.setBounds(100, 170, 120, 40);
+    botaoacervofuncionarios.setBounds(20, 220, 450, 30);
+    botaoacervofuncionarios.setForeground(letra);
+    botaoacervofuncionarios.setBackground(fundobotao);
+    botaoacervofuncionarios.setFont(new Font("Arial", Font.BOLD, 15));
     botaoacervofuncionarios.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
 
@@ -282,55 +318,59 @@ Color letra = new Color (0,0,0);
   
   public void abrirjanela6() {
     JFrame janela6 = new JFrame("Formulário de Cadastro");
-    janela6.setSize(600,600);
+    janela6.setSize(500,500);
     janela6.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     janela6.setLayout(null);
 
-    JLabel comando = new JLabel("Preencha o formulário abaixo");
-    comando.setFont(new Font("Arial", Font.BOLD, 20));
-    comando.setBounds(50, 10, 300, 100);
+    JLabel comando = new JLabel("Preencha o formulário abaixo:");
+    comando.setFont(new Font("Arial", Font.BOLD, 25));
+    comando.setBounds(50, -10, 400, 100);
+
 
     janela6.add(comando);
 
-    JLabel rotuloIdentidade = new JLabel("Identidade:");
-    rotuloIdentidade.setFont(new Font("Arial", Font.PLAIN, 12));
-    rotuloIdentidade.setBounds(50, 30, 100, 20);
+     JLabel rotuloIdentidade = new JLabel("Identidade:");
+    rotuloIdentidade.setFont(new Font("Arial", Font.BOLD, 20));
+    rotuloIdentidade.setBounds(50, 70, 200, 20);
     JLabel rotuloNome = new JLabel("Nome:");
-    rotuloNome.setFont(new Font("Arial", Font.PLAIN, 12));
-    rotuloNome.setBounds(50, 60, 100, 20);
+    rotuloNome.setFont(new Font("Arial", Font.BOLD, 20));
+    rotuloNome.setBounds(50, 110, 100, 20);
     JLabel rotuloMatricula = new JLabel("Matrícula:");
-    rotuloMatricula.setFont(new Font("Arial", Font.PLAIN, 12));
-    rotuloMatricula.setBounds(50, 90, 100, 20);
+    rotuloMatricula.setFont(new Font("Arial", Font.BOLD, 20));
+    rotuloMatricula.setBounds(50, 150, 100, 20);
     JLabel rotuloSenha = new JLabel("Senha:");
-    rotuloSenha.setFont(new Font("Arial", Font.PLAIN, 12));
-    rotuloSenha.setBounds(50, 120, 100, 20);
+    rotuloSenha.setFont(new Font("Arial", Font.BOLD, 20));
+    rotuloSenha.setBounds(50, 190, 100, 20);
     JLabel rotuloEmail = new JLabel("E-mail:");
-    rotuloEmail.setFont(new Font("Arial", Font.PLAIN, 12));
-    rotuloEmail.setBounds(50, 170, 100, 20);
+    rotuloEmail.setFont(new Font("Arial", Font.BOLD, 20));
+    rotuloEmail.setBounds(50, 230, 100, 20);
     JLabel rotuloTelefone = new JLabel("Telefone:");
-    rotuloTelefone.setFont(new Font("Arial", Font.PLAIN, 12));
-    rotuloTelefone.setBounds(50, 180, 100, 20);
-    JLabel rotuloDepartamento = new JLabel("Departamento:");
-    rotuloDepartamento.setFont(new Font("Arial", Font.PLAIN, 12));
-    rotuloDepartamento.setBounds(50, 210, 100, 20);
+    rotuloTelefone.setFont(new Font("Arial", Font.BOLD, 20));
+    rotuloTelefone.setBounds(50, 270, 100, 20);
+    JLabel rotuloDepartamento = new JLabel("Departamento");
+    rotuloDepartamento.setFont(new Font("Arial", Font.BOLD, 20));
+    rotuloDepartamento.setBounds(50, 310, 100, 20);
 
     JTextField campoIdentidade = new JTextField();
-    campoIdentidade.setBounds(170, 30, 200, 20);
+    campoIdentidade.setBounds(170, 70, 300, 30);
     JTextField campoNome = new JTextField();
-    campoNome.setBounds(170, 60, 200, 20);
+    campoNome.setBounds(170, 110, 300, 30);
     JTextField campoMatricula = new JTextField();
-    campoMatricula.setBounds(170, 90, 200, 20);
+    campoMatricula.setBounds(170, 150, 300, 30);
     JTextField campoSenha = new JTextField();
-    campoSenha.setBounds(170, 120, 200, 20);
+    campoSenha.setBounds(170, 190, 300, 30);
     JTextField campoEmail = new JTextField();
-    campoEmail.setBounds(170, 170, 200, 20);
+    campoEmail.setBounds(170, 230, 300, 30);
     JTextField campoTelefone = new JTextField();
-    campoTelefone.setBounds(170, 180, 200, 20);
+    campoTelefone.setBounds(170, 270, 300, 30);
     JTextField campoDepartamento = new JTextField();
-    campoDepartamento.setBounds(170, 210, 200, 20);
+    campoDepartamento.setBounds(170, 310, 300, 30);
 
     JButton botaoEnviar = new JButton("Enviar");
-    botaoEnviar.setBounds(170, 240, 120, 40);
+    botaoEnviar.setBounds(340, 380, 120, 40);
+    botaoEnviar.setFont(new Font("Arial", Font.BOLD, 20));
+    botaoEnviar.setForeground(letra);
+    botaoEnviar.setBackground(fundobotao);
     botaoEnviar.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
         // Verifica se todos os campos estão preenchidos
@@ -377,18 +417,23 @@ Color letra = new Color (0,0,0);
   public void abrirjanela7() {
 
     JFrame janela7 = new JFrame("");
-    janela7.setSize(600,600);
+    janela7.setSize(500,500);
     janela7.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     janela7.getContentPane().setBackground(fundojanela);
 
+
     JLabel msgfuncionario = new JLabel("Cadastro realizado com sucesso!");
-    msgfuncionario.setFont(new Font("Arial", Font.BOLD, 20));
-    msgfuncionario.setBounds(50, 50, 300, 100);
+    msgfuncionario.setFont(new Font("Arial", Font.BOLD, 28));
+    msgfuncionario.setBounds(25, 120, 500, 100);
+    msgfuncionario.setForeground(letra);
 
     janela7.add(msgfuncionario);
 
     JButton botaofuncionario = new JButton("Clique aqui para ser redirecionado ao acervo de funcionarios");
-    botaofuncionario.setBounds(100, 170, 120, 40);
+    botaofuncionario.setBounds(0, 220, 490, 30);
+    botaofuncionario.setForeground(letra);
+    botaofuncionario.setBackground(fundobotao);
+    botaofuncionario.setFont(new Font("Arial", Font.BOLD, 15));
     botaofuncionario.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
 
@@ -402,6 +447,7 @@ Color letra = new Color (0,0,0);
 
     janela7.setVisible(true);
   }
+
 
 
 
