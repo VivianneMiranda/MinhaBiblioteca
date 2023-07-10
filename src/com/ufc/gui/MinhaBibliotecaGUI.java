@@ -7,6 +7,7 @@ import com.ufc.biblioteca.BibliotecaCentral;
 import com.ufc.biblioteca.RepositorioEmprestimo;
 import com.ufc.livro.Livro;
 import com.ufc.livro.repositorio.RepositorioLivro;
+import com.ufc.livro.repositorio.excecao.LNCException;
 import com.ufc.usuario.Aluno;
 import com.ufc.usuario.Funcionario;
 import com.ufc.usuario.UsuarioAbstrato;
@@ -14,7 +15,6 @@ import com.ufc.usuario.repositorio.RepositorioUsuario;
 import com.ufc.usuario.repositorio.excecao.UJCException;
 
 import java.awt.*;
-import javax.swing.JPanel;
 
 
 
@@ -723,12 +723,12 @@ private BibliotecaCentral bCentral;
         JTextField campoDataPublicacao = new JTextField();
         campoDataPublicacao.setBounds(220, 270, 250, 30);
 
-        JLabel rotuloQuantidadeTotal = new JLabel("Quantidade Total:");
-        rotuloQuantidadeTotal.setFont(new Font("Arial", Font.BOLD, 16));
-        rotuloQuantidadeTotal.setBounds(30, 310, 170, 20);
+        JLabel rotuloAnoPublicacao = new JLabel("Ano de publicação:");
+        rotuloAnoPublicacao.setFont(new Font("Arial", Font.BOLD, 16));
+        rotuloAnoPublicacao.setBounds(30, 310, 170, 20);
 
-        JTextField campoQuantidadeTotal = new JTextField();
-        campoQuantidadeTotal.setBounds(220, 310, 250, 30);
+        JTextField campoAnoPublicacao = new JTextField();
+        campoAnoPublicacao.setBounds(220, 310, 250, 30);
 
         JLabel rotuloQuantidadeDisponivel = new JLabel("Quantidade Disponível:");
         rotuloQuantidadeDisponivel.setFont(new Font("Arial", Font.BOLD, 16));
@@ -753,11 +753,11 @@ private BibliotecaCentral bCentral;
                     String isbn = campoISBN.getText();
                     String editora = campoEditora.getText();
                     String dataPublicacaoString = campoDataPublicacao.getText();
-                    String quantidadeTotalString = campoQuantidadeTotal.getText();
+                    String anoPublicacaoString = campoAnoPublicacao.getText();
                     String quantidadeDisponivelString = campoQuantidadeDisponivel.getText();
 
                     // Verificar se os campos obrigatórios estão preenchidos
-                    if (idString.isEmpty() || isbn.isEmpty() || quantidadeTotalString.isEmpty() || quantidadeDisponivelString.isEmpty()) {
+                    if (idString.isEmpty() || isbn.isEmpty() || anoPublicacaoString.isEmpty() || quantidadeDisponivelString.isEmpty()) {
                         JOptionPane.showMessageDialog(janela11, "Por favor, preencha todos os campos obrigatórios.",
                                 "Erro", JOptionPane.ERROR_MESSAGE);
                         return;
@@ -765,7 +765,7 @@ private BibliotecaCentral bCentral;
 
                     // Converter valores para os tipos corretos
                     int id = Integer.parseInt(idString);
-                    int quantidadeTotal = Integer.parseInt(quantidadeTotalString);
+                    int AnoPublicacao = Integer.parseInt(anoPublicacaoString);
                     int quantidadeDisponivel = Integer.parseInt(quantidadeDisponivelString);
 
                     // Realizar ação de cadastro aqui...
@@ -799,8 +799,8 @@ private BibliotecaCentral bCentral;
         janela11.add(campoEditora);
         janela11.add(rotuloDataPublicacao);
         janela11.add(campoDataPublicacao);
-        janela11.add(rotuloQuantidadeTotal);
-        janela11.add(campoQuantidadeTotal);
+        janela11.add(rotuloAnoPublicacao);
+        janela11.add(campoAnoPublicacao);
         janela11.add(rotuloQuantidadeDisponivel);
         janela11.add(campoQuantidadeDisponivel);
         janela11.add(botaoCadastrar);
@@ -931,9 +931,9 @@ private BibliotecaCentral bCentral;
         } else {
           
           try {
-            repoLivros.buscarLivroPorAutor(autor);
+          /* Livro livro = repoLivros.buscarLivroPorAutor(autor); */
           janela14.dispose();
-          abrirjanela17();
+          /* abrirjanela17(); */
           } catch (Exception error) {
             JOptionPane.showMessageDialog(janela14, error.getMessage(),
               "Erro", JOptionPane.ERROR_MESSAGE);
@@ -985,9 +985,14 @@ private BibliotecaCentral bCentral;
         } else {
           
           try {
-            repoLivros.buscarLivroPorTitulo(titulo);
+            Livro livro = repoLivros.buscarLivroPorTitulo(titulo);
+            if(livro == null){
+               JOptionPane.showMessageDialog(janela15, "Livro não encontrado!",
+              "Erro", JOptionPane.ERROR_MESSAGE);
+              return;
+            }
           janela15.dispose();
-          abrirjanela17();
+          abrirjanela17(livro);
           } catch (Exception error) {
             JOptionPane.showMessageDialog(janela15, error.getMessage(),
               "Erro", JOptionPane.ERROR_MESSAGE);
@@ -1039,9 +1044,14 @@ public void abrirjanela16() {
         } else {
           
           try {
-            repoLivros.buscarLivroPorISBN(isbn);
+           Livro livro = repoLivros.buscarLivroPorISBN(isbn);
+            if(livro == null){
+               JOptionPane.showMessageDialog(janela16, "Livro não encontrado!",
+              "Erro", JOptionPane.ERROR_MESSAGE);
+              return;
+            }
           janela16.dispose();
-          abrirjanela17();
+          abrirjanela17(livro);
           } catch (Exception error) {
             JOptionPane.showMessageDialog(janela16, error.getMessage(),
               "Erro", JOptionPane.ERROR_MESSAGE);
@@ -1063,7 +1073,7 @@ public void abrirjanela16() {
 
   
   
-  public void abrirjanela17(){
+  public void abrirjanela17(Livro livro){
         JFrame janela17 = new JFrame("Detalhes do Livro");
         janela17.setSize(500,500);
         janela17.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -1075,8 +1085,16 @@ public void abrirjanela16() {
         remover.setBounds(100, 170, 120, 40);
         remover.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {
-        janela17.dispose();
-        abrirjanela18();
+
+          try {
+            repoLivros.remover(livro.getISBN());
+            janela17.dispose();
+          abrirjanela18();
+          } catch (Exception error) {
+            JOptionPane.showMessageDialog(janela17, error.getMessage(),
+              "Erro", JOptionPane.ERROR_MESSAGE);
+          }
+        
         }
     });
 
@@ -1153,15 +1171,15 @@ public void abrirjanela16() {
         campoQuantidadeDisponivel.setEditable(false);
 
         // Definir valores dos campos de texto
-        campoId.setText("123");
-        campoTitulo.setText("Livro Exemplo");
-        campoAutor.setText("Autor Exemplo");
-        campoISBN.setText("9781234567890");
-        campoEmail.setText("exemplo@email.com");
-        campoEditora.setText("Editora Exemplo");
-        campoDataPublicacao.setText("01/01/2022");
-        campoQuantidadeTotal.setText("10");
-        campoQuantidadeDisponivel.setText("5");
+        /* campoId.setText("ID"); */
+        campoTitulo.setText(livro.getTitulo());
+        campoAutor.setText(livro.getAutor());
+        campoISBN.setText(livro.getISBN());
+        /* campoEmail.setText("exemplo@email.com"); */
+        campoEditora.setText(livro.getEditora());
+        campoDataPublicacao.setText(String.valueOf(livro.getAnoPublicacao()));
+        /* campoQuantidadeTotal.setText(livro.get); */
+        campoQuantidadeDisponivel.setText(String.valueOf(livro.getQuantidadeDisponivel()));
 
         janela17.add(rotuloId);
         janela17.add(campoId);
