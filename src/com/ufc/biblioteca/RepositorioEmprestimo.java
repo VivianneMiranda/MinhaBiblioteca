@@ -1,5 +1,6 @@
 package com.ufc.biblioteca;
 
+import com.ufc.livro.Livro;
 import com.ufc.usuario.UsuarioAbstrato;
 
 import java.io.*;
@@ -38,8 +39,16 @@ public class RepositorioEmprestimo {
         return emprestimosPorUsuario;
     }
 
+    public Emprestimo getEmprestimoPorUsuarioELivro(UsuarioAbstrato usuario, Livro livro) {
+        for (Emprestimo emprestimo : emprestimos) {
+            if (emprestimo.getUsuario().equals(usuario) && emprestimo.getLivro().equals(livro)) {
+                return emprestimo;
+            }
+        }
+        return null;
+    }
+
     public List<Emprestimo> listar() {
-        System.out.println(new ArrayList<>(emprestimos));
         return new ArrayList<>(emprestimos);
     }
 

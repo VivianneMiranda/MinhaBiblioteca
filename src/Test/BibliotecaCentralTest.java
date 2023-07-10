@@ -264,4 +264,32 @@ public class BibliotecaCentralTest {
         Assert.assertTrue(emprestimos.contains(emprestimo1));
         Assert.assertTrue(emprestimos.contains(emprestimo2));
     }
+
+    @Test
+    public void testGetEmprestimoPorUsuarioELivro_EmpréstimoExistente() throws Exception{
+        UsuarioAbstrato usuario = new Aluno(" aluno Teste", "aluno@teste.com", "123456", "12345678901234568654", "85985386441", "Engenharia");
+        Livro livro1 = new Livro("Livro1 Teste", "Autor teste", "123456789012784", "Editora X", 2023, 5);
+        Livro livro2 = new Livro("Livro2 Teste", "Autor teste", "09876543216224", "Editora Y", 2023, 3);
+        repositorioUsuario.cadastrar(usuario);
+        livroRepositorio.cadastrar(livro1);
+        livroRepositorio.cadastrar(livro2);
+
+        Emprestimo emprestimo = new Emprestimo(livro1, usuario);
+        repositorioEmprestimo.cadastrarEmprestimo(emprestimo);
+
+        Emprestimo resultado = repositorioEmprestimo.getEmprestimoPorUsuarioELivro(usuario, livro1);
+        Assert.assertNotNull(resultado);
+        Assert.assertEquals(emprestimo, resultado);
+    }
+
+    @Test
+    public void testGetEmprestimoPorUsuarioELivro_EmpréstimoInexistente() throws Exception{
+        UsuarioAbstrato usuario = new Aluno(" aluno Teste", "aluno@teste.com", "123456", "5561564", "85985386441", "Engenharia");
+        Livro livro1 = new Livro("Livro1 Teste", "Autor teste", "748", "Editora X", 2023, 5);
+        repositorioUsuario.cadastrar(usuario);
+        livroRepositorio.cadastrar(livro1);
+
+        Emprestimo resultado = repositorioEmprestimo.getEmprestimoPorUsuarioELivro(usuario, livro1);
+        Assert.assertNull(resultado);
+    }
 }

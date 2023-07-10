@@ -6,6 +6,7 @@
 Esse projeto foi desenvolvido com as seguinte tecnologia:
 
 - [Java 17](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
+- [Java Swing](https://docs.oracle.com/javase/tutorial/uiswing/)
 
 
 ## 💻 Projeto
