@@ -1,3 +1,4 @@
+package com.ufc.gui;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
@@ -1761,7 +1762,4 @@ public void abrirjanela27() {
     janela29.setVisible(true);
   }
 
-  public static void main(String[] args) {
-    SwingUtilities.invokeLater(() -> new MinhaBibliotecaGUI());
-  }
 }
