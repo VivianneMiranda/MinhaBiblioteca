@@ -80,7 +80,7 @@ private BibliotecaCentral bCentral;
     entrar.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
       janelaInicial.dispose();
-      abrirjanela2();
+      abrirjanela13();
       
 
       }
@@ -933,7 +933,7 @@ private BibliotecaCentral bCentral;
           try {
           /* Livro livro = repoLivros.buscarLivroPorAutor(autor); */
           janela14.dispose();
-          /* abrirjanela17(); */
+          abrirjanela30();
           } catch (Exception error) {
             JOptionPane.showMessageDialog(janela14, error.getMessage(),
               "Erro", JOptionPane.ERROR_MESSAGE);
@@ -992,7 +992,7 @@ private BibliotecaCentral bCentral;
               return;
             }
           janela15.dispose();
-          abrirjanela17(livro);
+          abrirjanela30();
           } catch (Exception error) {
             JOptionPane.showMessageDialog(janela15, error.getMessage(),
               "Erro", JOptionPane.ERROR_MESSAGE);
@@ -1051,7 +1051,7 @@ public void abrirjanela16() {
               return;
             }
           janela16.dispose();
-          abrirjanela17(livro);
+          abrirjanela30();
           } catch (Exception error) {
             JOptionPane.showMessageDialog(janela16, error.getMessage(),
               "Erro", JOptionPane.ERROR_MESSAGE);
@@ -1872,6 +1872,51 @@ public void abrirjanela27() {
 
     janela29.setVisible(true);
   }
+
+
+
+
+
+
+
+  public void abrirjanela30(){
+  JFrame janela30 = new JFrame("Selecione o livro buscado:");
+        janela30.setSize(500, 500);
+        janela30.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        janela30.setLayout(null);
+        janela30.getContentPane().setBackground(fundojanela);
+
+        JLabel rotuloSelecao = new JLabel("Selecione o livro buscado:");
+        rotuloSelecao.setFont(new Font("Arial", Font.BOLD, 20));
+        rotuloSelecao.setBounds(50, 30, 300, 30);
+
+        JComboBox<String> comboBoxLivros = new JComboBox<String>();
+        comboBoxLivros.setBounds(50, 60, 300, 20);
+        comboBoxLivros.addItem("Livro 1");
+        comboBoxLivros.addItem("Livro 2");
+        comboBoxLivros.addItem("Livro 3");
+        // Adicione aqui os livros encontrados
+
+        JButton botao = new JButton("Buscar");
+        botao.setBounds(150, 100, 120, 40);
+        botao.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String livroSelecionado = (String) comboBoxLivros.getSelectedItem();
+                if (livroSelecionado != null) {
+                    // Realizar ação de busca do livro
+                    janela30.dispose();
+                    abrirjanela17(livro);
+                }
+            }
+        });
+
+        janela30.add(rotuloSelecao);
+        janela30.add(comboBoxLivros);
+        janela30.add(botao);
+
+        janela30.setVisible(true);
+      }
+
 
   public static void main(String[] args) {
     SwingUtilities.invokeLater(() -> new MinhaBibliotecaGUI());
