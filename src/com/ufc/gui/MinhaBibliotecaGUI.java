@@ -6,10 +6,10 @@ import java.util.List;
 import javax.swing.*;
 
 import com.ufc.biblioteca.BibliotecaCentral;
+import com.ufc.biblioteca.Emprestimo;
 import com.ufc.biblioteca.RepositorioEmprestimo;
 import com.ufc.livro.Livro;
 import com.ufc.livro.repositorio.RepositorioLivro;
-import com.ufc.livro.repositorio.excecao.LNCException;
 import com.ufc.usuario.Aluno;
 import com.ufc.usuario.Funcionario;
 import com.ufc.usuario.UsuarioAbstrato;
@@ -31,6 +31,7 @@ private RepositorioUsuario repoUsuarios;
 private RepositorioLivro repoLivros; 
 private RepositorioEmprestimo repoEmprestimos;
 private BibliotecaCentral bCentral;
+private String matriculaUsuario;
 
   public MinhaBibliotecaGUI() {
     
@@ -588,7 +589,7 @@ private BibliotecaCentral bCentral;
               "Erro", JOptionPane.ERROR_MESSAGE);
         } else {
           
-          // Aqui você pode implementar a lógica de autenticação
+
           try{
             bCentral.login(matricula, senha);
           janela9.dispose();
@@ -1286,7 +1287,9 @@ public void abrirjanela16() {
         } else {
           
           try{
-            bCentral.login(matricula, senha);
+            Boolean login = bCentral.login(matricula, senha);
+            if(login) matriculaUsuario = matricula;
+            
           janela19.dispose();
           abrirjanela20();
           }catch(Exception error){
@@ -1433,11 +1436,22 @@ public void abrirjanela21() {
               "Erro", JOptionPane.ERROR_MESSAGE);
         } else {
           
-          // Aqui você pode implementar a lógica de autenticação
-          //Caso não encontre o titulo fazer: JOptionPane.showMessageDialog(janela22, "Por favor, preencha todos os campos.",
-              //"Erro", JOptionPane.ERROR_MESSAGE);
-          janela22.dispose();
-          abrirjanela25();
+          try {
+            Livro livro = repoLivros.buscarLivroPorTitulo(titulo);
+            if(livro == null){
+               JOptionPane.showMessageDialog(janela22, "Livro não encontrado!",
+              "Erro", JOptionPane.ERROR_MESSAGE);
+              return;
+            }
+              janela22.dispose();
+              abrirjanela25(livro);
+          /* janela15.dispose();
+          abrirjanela17(livro); */
+          } catch (Exception error) {
+            JOptionPane.showMessageDialog(janela22, error.getMessage(),
+              "Erro", JOptionPane.ERROR_MESSAGE);
+          }
+
         }
       }
     });
@@ -1482,13 +1496,21 @@ public void abrirjanela23() {
               "Erro", JOptionPane.ERROR_MESSAGE);
         } else {
           
-          // Aqui você pode implementar a lógica de autenticação
-          //Caso não encontre o autor fazer: JOptionPane.showMessageDialog(janela23, "Por favor, preencha todos os campos.",
-              //"Erro", JOptionPane.ERROR_MESSAGE);
-          janela23.dispose();
-          abrirjanela25();
+          try {
+            List<Livro> livros = repoLivros.buscarLivroPorAutor(autor);
+            if (livros.isEmpty()) {JOptionPane.showMessageDialog(janela23, "O autor não tem livros cadastrados no sistema!",
+                "Erro", JOptionPane.ERROR_MESSAGE);
+              return;
+              }
+            janela23.dispose();
+            abrirjanela31(livros);
+            } catch (Exception error) {
+              JOptionPane.showMessageDialog(janela23, error.getMessage(),
+                "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+          }
         }
-      }
+      
     });
 
     janela23.add(rotuloAutor);
@@ -1529,11 +1551,20 @@ public void abrirjanela23() {
               "Erro", JOptionPane.ERROR_MESSAGE);
         } else {
           
-          // Aqui você pode implementar a lógica de autenticação
-          //Caso não encontre o isbn fazer: JOptionPane.showMessageDialog(janela24, "Por favor, preencha todos os campos.",
-              //"Erro", JOptionPane.ERROR_MESSAGE);
-          janela24.dispose();
-          abrirjanela25();
+          try {
+            Livro livro = repoLivros.buscarLivroPorISBN(isbn);
+             if(livro == null){
+                JOptionPane.showMessageDialog(janela24, "Livro não encontrado!",
+               "Erro", JOptionPane.ERROR_MESSAGE);
+               return;
+             }
+           janela24.dispose();
+           abrirjanela25(livro);
+           } catch (Exception error) {
+             JOptionPane.showMessageDialog(janela24, error.getMessage(),
+               "Erro", JOptionPane.ERROR_MESSAGE);
+           }
+
         }
       }
     });
@@ -1551,7 +1582,7 @@ public void abrirjanela23() {
 
 
 
-  public void abrirjanela25(){
+  public void abrirjanela25(Livro livro){
         JFrame janela25 = new JFrame("Detalhes do Livro");
         janela25.setSize(500,500);
         janela25.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -1563,7 +1594,13 @@ public void abrirjanela23() {
         remover.setBounds(100, 170, 120, 40);
         remover.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {
-        //logica para associar o emprestimo do livro ao usuario
+        try {
+          Emprestimo emprestimo = new Emprestimo(livro, repoUsuarios.buscar(matriculaUsuario));
+          repoEmprestimos.cadastrarEmprestimo(emprestimo);
+        } catch (Exception error) {
+          JOptionPane.showMessageDialog(janela25, error.getMessage(),
+              "Erro", JOptionPane.ERROR_MESSAGE);
+        }
         janela25.dispose();
         abrirjanela26();
         }
@@ -1642,15 +1679,15 @@ public void abrirjanela23() {
         campoQuantidadeDisponivel.setEditable(false);
 
         // Definir valores dos campos de texto
-        campoId.setText("123");
-        campoTitulo.setText("Livro Exemplo");
-        campoAutor.setText("Autor Exemplo");
-        campoISBN.setText("9781234567890");
-        campoEmail.setText("exemplo@email.com");
-        campoEditora.setText("Editora Exemplo");
-        campoDataPublicacao.setText("01/01/2022");
-        campoQuantidadeTotal.setText("10");
-        campoQuantidadeDisponivel.setText("5");
+/*         campoId.setText("id"); */
+        campoTitulo.setText(livro.getTitulo());
+        campoAutor.setText(livro.getAutor());
+        campoISBN.setText(livro.getISBN());
+        /* campoEmail.setText(livro.get); */
+        campoEditora.setText(livro.getEditora());
+        campoDataPublicacao.setText(Integer.toString(livro.getAnoPublicacao()));
+/*         campoQuantidadeTotal.setText("10"); */
+        campoQuantidadeDisponivel.setText(Integer.toString(livro.getQuantidadeDisponivel()));
 
         janela25.add(rotuloId);
         janela25.add(campoId);
@@ -1931,8 +1968,53 @@ public void abrirjanela27() {
         janela30.setVisible(true);
       }
 
+      public void abrirjanela31(List<Livro> livros){ 
+    
 
-  public static void main(String[] args) {
+  JFrame janela31 = new JFrame("Selecione o livro buscado:");
+        janela31.setSize(500, 500);
+        janela31.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        janela31.setLayout(null);
+        janela31.getContentPane().setBackground(fundojanela);
+
+        JLabel rotuloSelecao = new JLabel("Selecione o livro buscado:");
+        rotuloSelecao.setFont(new Font("Arial", Font.BOLD, 20));
+        rotuloSelecao.setBounds(50, 30, 300, 30);
+
+        JComboBox<String> comboBoxLivros = new JComboBox<String>();
+        comboBoxLivros.setBounds(50, 60, 300, 20);
+        for (Livro livro : livros) {
+        comboBoxLivros.addItem(livro.getTitulo());
+        }
+
+
+        JButton botao = new JButton("Buscar");
+        botao.setBounds(150, 100, 120, 40);
+        botao.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String livroSelecionadoString = (String) comboBoxLivros.getSelectedItem();
+                Livro livroSelecionado = repoLivros.buscarLivroPorTitulo(livroSelecionadoString);
+                if (livroSelecionado != null) {
+                    try {
+                      janela31.dispose();
+                    abrirjanela25(livroSelecionado);
+                    } catch (Exception error) {
+                      JOptionPane.showMessageDialog(janela31, error.getMessage(),
+              "Erro", JOptionPane.ERROR_MESSAGE);
+                    }
+                    
+                }
+            }
+        });
+
+        janela31.add(rotuloSelecao);
+        janela31.add(comboBoxLivros);
+        janela31.add(botao);
+
+        janela31.setVisible(true);
+      }
+
+ /*  public static void main(String[] args) {
     SwingUtilities.invokeLater(() -> new MinhaBibliotecaGUI());
-  }
+  } */
 }
