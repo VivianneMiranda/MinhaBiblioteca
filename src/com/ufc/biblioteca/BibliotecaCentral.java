@@ -66,11 +66,11 @@ public class BibliotecaCentral implements IBiblioteca {
     }
 
     public void adicionarFuncionario(Funcionario usuario) throws UJCException {
-        iRepositorioUsuario.cadastrarFuncionario(usuario);
+        iRepositorioUsuario.cadastrar(usuario);
     }
 
     public void adicionarAluno(Aluno usuario) throws UJCException {
-        iRepositorioUsuario.cadastrarAluno(usuario);
+        iRepositorioUsuario.cadastrar(usuario);
     }
 
     public void removerUsuario(String matricula) throws UNCException {

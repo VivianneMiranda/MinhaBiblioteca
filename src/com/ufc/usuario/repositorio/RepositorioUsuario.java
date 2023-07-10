@@ -8,30 +8,19 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Vector;
 
-import com.ufc.usuario.Aluno;
-import com.ufc.usuario.Funcionario;
 import com.ufc.usuario.UsuarioAbstrato;
 import com.ufc.usuario.repositorio.excecao.UJCException;
 import com.ufc.usuario.repositorio.excecao.UNCException;
 
 public class RepositorioUsuario implements IRepositorioUsuario {
   private Vector<UsuarioAbstrato> usuarios;
-  
+
   public RepositorioUsuario() {
     this.usuarios = new Vector<UsuarioAbstrato>();
     desserializar();
   }
 
-  public void cadastrarFuncionario(Funcionario usuario) throws UJCException {
-    if (this.existe(usuario.getMatricula())) {
-      throw new UJCException(usuario.getMatricula());
-    }
-
-    this.usuarios.add(usuario);
-    serializar();
-  }
-
-  public void cadastrarAluno(Aluno usuario) throws UJCException {
+  public void cadastrar(UsuarioAbstrato usuario) throws UJCException {
     if (this.existe(usuario.getMatricula())) {
       throw new UJCException(usuario.getMatricula());
     }
@@ -79,13 +68,13 @@ public class RepositorioUsuario implements IRepositorioUsuario {
     return matricula != null && this.buscar(matricula) != null;
   }
 
-  // public UsuarioAbstrato recuperar(String matricula) throws UNCException {
-  //   if (!this.existe(matricula)) {
-  //     throw new UNCException(matricula);
-  //   }
+  public UsuarioAbstrato recuperar(String matricula) throws UJCException {
+    if (!this.existe(matricula)) {
+      throw new UJCException(matricula);
+    }
 
-  //   return this.buscar(matricula);
-  // }
+    return this.buscar(matricula);
+  }
 
     private void serializar() {
     File diretorio = new File("./arquivo");
@@ -103,47 +92,62 @@ public class RepositorioUsuario implements IRepositorioUsuario {
     }
   }
 
-private void desserializar() {
+  private void desserializar() {
     String pathDir = "./arquivo";
     File diretorio = new File(pathDir);
+
     if (!diretorio.isDirectory()) {
-      diretorio.mkdir();
+        if (diretorio.mkdir()) {
+            System.out.println("Diretório criado com sucesso.");
+        } else {
+            System.out.println("Não foi possível criar o diretório.");
+            return;
+        }
+    }
+
+    String pathArquivo = pathDir + "/" + "usuarios.bin";
+    File arquivo = new File(pathArquivo);
+
+    if (arquivo.length() == 0) {
+      System.out.println("O arquivo usuarios.bin está vazio.");
+      return;
+  }
+
+    if (!arquivo.exists()) {
+        try {
+            if (arquivo.createNewFile()) {
+                System.out.println("Arquivo usuarios.bin criado com sucesso.");
+            } else {
+                System.out.println("Não foi possível criar o arquivo usuarios.bin.");
+                return;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
+        }
     }
 
     try {
-      String pathArquivo = pathDir + "/" + "usuarios.bin";
-      FileInputStream leitor = new FileInputStream(pathArquivo);
-      ObjectInputStream conversor = new ObjectInputStream(leitor);
-      Vector<Funcionario> funcionarios = (Vector<Funcionario>) conversor.readObject();
-      Vector<Aluno> alunos = (Vector<Aluno>) conversor.readObject();
-      for (Funcionario funcionario : funcionarios) {
-
-        String matriculaUsuario = funcionario.getMatricula();
-
-        if (existe(matriculaUsuario)) {
-          this.cadastrarFuncionario(funcionario);
-          System.out.println(funcionario.getMatricula() + " existe");
+        FileInputStream leitor = new FileInputStream(pathArquivo);
+        ObjectInputStream conversor = new ObjectInputStream(leitor);
+        Vector<UsuarioAbstrato> usuarios = (Vector<UsuarioAbstrato>) conversor.readObject();
+        for (UsuarioAbstrato usuario : usuarios) {
+            String matriculaUsuario = usuario.getMatricula();
+            if (existe(matriculaUsuario)) {
+                System.out.println(usuario.getMatricula() + " existe");
+            } else {
+                this.cadastrar(usuario);
+                System.out.println("ok");
+            }
         }
-
-      }
-      for (Aluno aluno : alunos) {
-
-        String matriculaUsuario = aluno.getMatricula();
-
-        if (existe(matriculaUsuario)) {
-          this.cadastrarAluno(aluno);
-          System.out.println(aluno.getMatricula() + " existe");
-        }
-
-      }
-      conversor.close();
+        conversor.close();
     } catch (IOException ioe) {
-      ioe.printStackTrace();
+        ioe.printStackTrace();
     } catch (ClassNotFoundException e) {
-      e.printStackTrace();
+        e.printStackTrace();
     } catch (UJCException e) {
-      e.printStackTrace();
+        e.printStackTrace();
     }
-  }
+}
 
 }
