@@ -2,6 +2,14 @@ package com.ufc.gui;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
+
+import com.ufc.biblioteca.BibliotecaCentral;
+import com.ufc.usuario.Aluno;
+import com.ufc.usuario.Funcionario;
+import com.ufc.usuario.UsuarioAbstrato;
+import com.ufc.usuario.repositorio.RepositorioUsuario;
+import com.ufc.usuario.repositorio.excecao.UJCException;
+
 import java.awt.*;
 
 
@@ -12,8 +20,18 @@ Color fundobotao = new Color(120,231,255);
 Color fundojanela = new Color(224,255,255);
 Color letra = new Color (0,0,0);
   
+private RepositorioUsuario repoUsuarios;
+/* private RepositorioLivro repoLivros; 
+private RepositorioEmprestimos repoEmprestimos; */
+private BibliotecaCentral bCentral;
+
 public MinhaBibliotecaGUI() {
     
+    repoUsuarios = new RepositorioUsuario();
+    /* repoLivros = new RepositorioLivros();
+    repoEmprestimos = new RepositorioEmprestimos()
+    bCentral = new BibliotecaCentral(repoUsuarios, repoLivros, repoEmprestimos); */
+
     JFrame janelaInicial = new JFrame("Minha Biblioteca");
     janelaInicial.setSize(500, 500);
     janelaInicial.setLayout(new BorderLayout());
@@ -245,9 +263,16 @@ public MinhaBibliotecaGUI() {
           JOptionPane.showMessageDialog(janela4, "Por favor, preencha todos os campos.",
               "Erro", JOptionPane.ERROR_MESSAGE);
         } else {
-          // Aqui você pode implementar a lógica para enviar os dados para algum lugar
-          janela4.dispose();
-          abrirjanela5();
+          try {
+            UsuarioAbstrato aluno = new Aluno(campoNome.getText(), campoEmail.getText(), campoSenha.getText(), campoMatricula.getText(), campoTelefone.getText(), campoCurso.getText());
+            repoUsuarios.cadastrar(aluno);
+            janela4.dispose();
+            abrirjanela5();
+          } catch (UJCException error) {
+              JOptionPane.showMessageDialog(janela4, error.getMessage(),
+              "Erro", JOptionPane.ERROR_MESSAGE);
+          }
+          
         }
       }
     });
@@ -382,9 +407,16 @@ public MinhaBibliotecaGUI() {
           JOptionPane.showMessageDialog(janela6, "Por favor, preencha todos os campos.",
               "Erro", JOptionPane.ERROR_MESSAGE);
         } else {
-          // Aqui você pode implementar a lógica para enviar os dados para algum lugar
-          janela6.dispose();
-          abrirjanela7();
+          try {
+            UsuarioAbstrato funcionario = new Funcionario(campoNome.getText(), campoEmail.getText(), campoSenha.getText(), campoMatricula.getText(), campoTelefone.getText(), campoDepartamento.getText());
+            repoUsuarios.cadastrar(funcionario);
+            janela6.dispose();
+            abrirjanela7();
+          } catch (UJCException error) {
+              JOptionPane.showMessageDialog(janela6, error.getMessage(),
+              "Erro", JOptionPane.ERROR_MESSAGE);
+          }
+          
         }
       }
     });

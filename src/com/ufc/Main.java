@@ -14,10 +14,8 @@ import com.ufc.usuario.repositorio.excecao.UNCException;
 public class Main {
 
     public static void main(String[] args) throws VNException, UJCException, UNCException, IOException {
-        RepositorioUsuario repo = new RepositorioUsuario();
+
         new MinhaBibliotecaGUI();
-        Aluno aluno = new Aluno("null", "null", "null", "null", "null", "null");
-        repo.cadastrar(aluno);
 
     }
 }
