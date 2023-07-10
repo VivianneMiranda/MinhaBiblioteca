@@ -2,7 +2,11 @@ package com.ufc.usuario;
 
 import com.ufc.usuario.excecao.VNException;
 
-public class Aluno extends UsuarioAbstrato{
+import java.io.Serializable;
+
+public class Aluno extends UsuarioAbstrato implements Serializable {
+  private static final long serialVersionUID = 1L;
+
   private String tipo;
   private String curso;
   private Double taxaMulta = 0.2;

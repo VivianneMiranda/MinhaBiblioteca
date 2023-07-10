@@ -1,5 +1,6 @@
 package com.ufc.biblioteca;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
@@ -8,7 +9,9 @@ import com.ufc.usuario.Aluno;
 import com.ufc.usuario.Funcionario;
 import com.ufc.usuario.UsuarioAbstrato;
 
-public class Emprestimo {
+public class Emprestimo implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private Livro livro;
     private UsuarioAbstrato usuario;
     private LocalDate dataEmprestimo;
@@ -22,30 +25,35 @@ public class Emprestimo {
     }
 
     public Livro getLivro() {
+
         return livro;
     }
 
     public UsuarioAbstrato getUsuario() {
+
         return usuario;
     }
 
     public LocalDate getDataEmprestimo() {
+
         return dataEmprestimo;
     }
 
     public LocalDate getDataDevolucao() {
+
         return dataDevolucao;
     }
 
     public void setDataDevolucao(LocalDate dataDevolucao) {
-        this.dataDevolucao = dataEmprestimo.plusDays(15);
+        this.dataDevolucao = dataDevolucao;
     }
 
     public double calcularMulta() {
         double valorMultaPorDia = 0.0;
         
-        if (dataDevolucao.isAfter(LocalDate.now())) {
+        if (dataDevolucao.isBefore(LocalDate.now())) {
             long diasAtraso = ChronoUnit.DAYS.between(dataDevolucao, LocalDate.now());
+            System.out.println("teste" + diasAtraso);
             
             if(usuario instanceof Funcionario){
                 valorMultaPorDia = ((Funcionario) usuario).getMulta();

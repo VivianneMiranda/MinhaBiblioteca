@@ -5,7 +5,7 @@
 
 Esse projeto foi desenvolvido com as seguinte tecnologia:
 
-- [Java 17](https://www.oracle.com/br/java/technologies/javase/javase-jdk11-downloads.html)
+- [Java 17](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
 
 
 ## 💻 Projeto

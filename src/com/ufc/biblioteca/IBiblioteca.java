@@ -16,25 +16,20 @@ import java.util.List;
 
 public interface IBiblioteca {
 
+    public boolean login(String matricula, String senha) throws CIException;
+
     public void adicionarLivro(Livro livro) throws LJCException;
 
     public void removerLivro(String ISBN) throws LNCException;
 
-    public void adicionarFuncionario(Funcionario usuario) throws UJCException;
-    
-    public void adicionarAluno(Aluno usuario) throws UJCException;
+    public void adicionarUsuario(UsuarioAbstrato usuario) throws UJCException;
 
     public void removerUsuario(String matricula) throws UNCException;
-    
-    public boolean login(String matricula, String senha) throws CIException;
-
-    public void logout();
-
-    public boolean isUsuarioLogado();
 
     public boolean EmprestarLivro(Livro livro, UsuarioAbstrato usuario);
 
     public boolean devolverLivro(Livro livro, UsuarioAbstrato usuario);
 
-    public List<Emprestimo> getEmprestimos();
+    public double ConsultarMulta(UsuarioAbstrato usuario);
+
 }
