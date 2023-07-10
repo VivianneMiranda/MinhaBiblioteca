@@ -9,6 +9,7 @@ import com.ufc.livro.repositorio.RepositorioLivro;
 import com.ufc.livro.repositorio.excecao.LJCException;
 import com.ufc.livro.repositorio.excecao.LNCException;
 import com.ufc.usuario.Aluno;
+import com.ufc.usuario.Funcionario;
 import com.ufc.usuario.UsuarioAbstrato;
 import com.ufc.usuario.repositorio.IRepositorioUsuario;
 import com.ufc.usuario.repositorio.RepositorioUsuario;
@@ -20,6 +21,7 @@ import org.junit.Test;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 
 public class BibliotecaCentralTest {
     private BibliotecaCentral biblioteca;
@@ -196,8 +198,8 @@ public class BibliotecaCentralTest {
     }
 
     @Test
-    public void testConsultarMulta_ComMulta() throws Exception{
-        UsuarioAbstrato usuario = new Aluno(" aluno Teste", "aluno@teste.com", "123456", "12345678901234", "85985386441", "Engenharia");
+    public void testConsultarMulta_ComMulta_Aluno() throws Exception{
+        UsuarioAbstrato usuario = new Aluno("aluno Teste", "aluno@teste.com", "123456", "12345678901234", "85985386441", "Engenharia");
         Livro livro = new Livro(" Livro Teste", "Autor Teste", "12345678901", "Editora Teste", 2023, 5);
         livroRepositorio.cadastrar(livro);
         repositorioUsuario.cadastrar(usuario);
@@ -205,13 +207,89 @@ public class BibliotecaCentralTest {
         biblioteca.EmprestarLivro(livro, usuario);
 
         Emprestimo emprestimo = repositorioEmprestimo.listar().get(0);
-        emprestimo.setDataDevolucao(LocalDate.now().minusDays(5)); // Definindo uma data de devolução passada (5 dias de atraso)
-        System.out.println(emprestimo.getDataDevolucao());
+        //emprestimo.setDataDevolucao(LocalDate.now().minusDays(5)); // Definindo uma data de devolução passada (5 dias de atraso)
 
         double multaEsperada = 5 * 0.2; // 5 dias de atraso x valor da multa diária aluno
         double multa = biblioteca.ConsultarMulta(usuario);
         System.out.println(ChronoUnit.DAYS.between(LocalDate.now().minusDays(5), LocalDate.now()));
 
         Assert.assertEquals(multaEsperada, multa, 0.01);
+    }
+
+    @Test
+    public void testConsultarMulta_ComMulta_Funcionario() throws Exception{
+        UsuarioAbstrato usuario = new Funcionario("Funcionario Teste", "funcionario@teste.com", "123456", "12345678901234852", "85985386441", "Deti");
+        Livro livro = new Livro("Livro Teste", "Autor Teste", "12345678901026", "Editora Teste", 2023, 5);
+        livroRepositorio.cadastrar(livro);
+        repositorioUsuario.cadastrar(usuario);
+
+        biblioteca.EmprestarLivro(livro, usuario);
+
+        Emprestimo emprestimo = repositorioEmprestimo.listar().get(0);
+        //emprestimo.setDataDevolucao(LocalDate.now().minusDays(5)); // Definindo uma data de devolução passada (5 dias de atraso)
+
+        double multaEsperada = 5 * 0.5; // 5 dias de atraso x valor da multa diária aluno
+        double multa = biblioteca.ConsultarMulta(usuario);
+        System.out.println(ChronoUnit.DAYS.between(LocalDate.now().minusDays(5), LocalDate.now()));
+
+        Assert.assertEquals(multaEsperada, multa, 0.01);
+    }
+
+    @Test
+    public void testGetEmprestimosPorUsuario_SemEmprestimos() throws Exception{
+        UsuarioAbstrato usuario = new Aluno(" aluno Teste", "aluno@teste.com", "123456", "123456789012345", "85985386441", "Engenharia");
+        repositorioUsuario.cadastrar(usuario);
+
+        List<Emprestimo> emprestimos = repositorioEmprestimo.getEmprestimosPorUsuario(usuario);
+        Assert.assertTrue(emprestimos.isEmpty());
+    }
+
+    @Test
+    public void testGetEmprestimosPorUsuario_ComEmprestimos() throws Exception{
+        UsuarioAbstrato usuario = new Aluno(" aluno Teste", "aluno@teste.com", "123456", "1234567890123456", "85985386441", "Engenharia");
+        Livro livro1 = new Livro("Livro1 Teste", "Autor teste", "123456789012", "Editora X", 2023, 5);
+        Livro livro2 = new Livro("Livro2 Teste", "Autor teste", "0987654321", "Editora Y", 2023, 3);
+        repositorioUsuario.cadastrar(usuario);
+        livroRepositorio.cadastrar(livro1);
+        livroRepositorio.cadastrar(livro2);
+
+        Emprestimo emprestimo1 = new Emprestimo(livro1, usuario);
+        Emprestimo emprestimo2 = new Emprestimo(livro2, usuario);
+
+        repositorioEmprestimo.cadastrarEmprestimo(emprestimo1);
+        repositorioEmprestimo.cadastrarEmprestimo(emprestimo2);
+
+        List<Emprestimo> emprestimos = repositorioEmprestimo.getEmprestimosPorUsuario(usuario);
+        Assert.assertEquals(2, emprestimos.size());
+        Assert.assertTrue(emprestimos.contains(emprestimo1));
+        Assert.assertTrue(emprestimos.contains(emprestimo2));
+    }
+
+    @Test
+    public void testGetEmprestimoPorUsuarioELivro_EmpréstimoExistente() throws Exception{
+        UsuarioAbstrato usuario = new Aluno(" aluno Teste", "aluno@teste.com", "123456", "12345678901234568654", "85985386441", "Engenharia");
+        Livro livro1 = new Livro("Livro1 Teste", "Autor teste", "123456789012784", "Editora X", 2023, 5);
+        Livro livro2 = new Livro("Livro2 Teste", "Autor teste", "09876543216224", "Editora Y", 2023, 3);
+        repositorioUsuario.cadastrar(usuario);
+        livroRepositorio.cadastrar(livro1);
+        livroRepositorio.cadastrar(livro2);
+
+        Emprestimo emprestimo = new Emprestimo(livro1, usuario);
+        repositorioEmprestimo.cadastrarEmprestimo(emprestimo);
+
+        Emprestimo resultado = repositorioEmprestimo.getEmprestimoPorUsuarioELivro(usuario, livro1);
+        Assert.assertNotNull(resultado);
+        Assert.assertEquals(emprestimo, resultado);
+    }
+
+    @Test
+    public void testGetEmprestimoPorUsuarioELivro_EmpréstimoInexistente() throws Exception{
+        UsuarioAbstrato usuario = new Aluno(" aluno Teste", "aluno@teste.com", "123456", "5561564", "85985386441", "Engenharia");
+        Livro livro1 = new Livro("Livro1 Teste", "Autor teste", "748", "Editora X", 2023, 5);
+        repositorioUsuario.cadastrar(usuario);
+        livroRepositorio.cadastrar(livro1);
+
+        Emprestimo resultado = repositorioEmprestimo.getEmprestimoPorUsuarioELivro(usuario, livro1);
+        Assert.assertNull(resultado);
     }
 }

@@ -1,13 +1,18 @@
 package com.ufc.gui;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+
 import javax.swing.*;
 
 import com.ufc.biblioteca.BibliotecaCentral;
+import com.ufc.biblioteca.Emprestimo;
 import com.ufc.biblioteca.RepositorioEmprestimo;
 import com.ufc.livro.Livro;
 import com.ufc.livro.repositorio.RepositorioLivro;
-import com.ufc.livro.repositorio.excecao.LNCException;
 import com.ufc.usuario.Aluno;
 import com.ufc.usuario.Funcionario;
 import com.ufc.usuario.UsuarioAbstrato;
@@ -29,6 +34,7 @@ private RepositorioUsuario repoUsuarios;
 private RepositorioLivro repoLivros; 
 private RepositorioEmprestimo repoEmprestimos;
 private BibliotecaCentral bCentral;
+private String matriculaUsuario;
 
   public MinhaBibliotecaGUI() {
     
@@ -604,10 +610,19 @@ private BibliotecaCentral bCentral;
               "Erro", JOptionPane.ERROR_MESSAGE);
         } else {
           
-          // Aqui você pode implementar a lógica de autenticação
+
           try{
-            bCentral.login(matricula, senha);
-          janela9.dispose();
+            Boolean login = bCentral.login(matricula, senha);
+            if(login) matriculaUsuario = matricula;
+            String type = repoUsuarios.buscar(matricula).getTipo();
+            
+            if( !type.equals("funcionario")){
+              JOptionPane.showMessageDialog(janela9, "Este usuário não exite!",
+              "Erro", JOptionPane.ERROR_MESSAGE);
+              return;
+            }
+
+            janela9.dispose();
           abrirjanela10();
           }catch(Exception error){
             JOptionPane.showMessageDialog(janela9, error.getMessage(),
@@ -958,9 +973,13 @@ private BibliotecaCentral bCentral;
         } else {
           
           try {
-          /* Livro livro = repoLivros.buscarLivroPorAutor(autor); */
+          List<Livro> livros = repoLivros.buscarLivroPorAutor(autor);
+          if (livros.isEmpty()) {JOptionPane.showMessageDialog(janela14, "O autor não tem livros cadastrados no sistema!",
+              "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+            }
           janela14.dispose();
-          abrirjanela30();
+          abrirjanela30(livros);
           } catch (Exception error) {
             JOptionPane.showMessageDialog(janela14, error.getMessage(),
               "Erro", JOptionPane.ERROR_MESSAGE);
@@ -1021,7 +1040,7 @@ private BibliotecaCentral bCentral;
               return;
             }
           janela15.dispose();
-          abrirjanela30();
+          abrirjanela17(livro);
           } catch (Exception error) {
             JOptionPane.showMessageDialog(janela15, error.getMessage(),
               "Erro", JOptionPane.ERROR_MESSAGE);
@@ -1083,7 +1102,7 @@ public void abrirjanela16() {
               return;
             }
           janela16.dispose();
-          abrirjanela30();
+          abrirjanela17(livro);
           } catch (Exception error) {
             JOptionPane.showMessageDialog(janela16, error.getMessage(),
               "Erro", JOptionPane.ERROR_MESSAGE);
@@ -1304,7 +1323,16 @@ public void abrirjanela16() {
         } else {
           
           try{
-            bCentral.login(matricula, senha);
+            Boolean login = bCentral.login(matricula, senha);
+            if(login) matriculaUsuario = matricula;
+            String type = repoUsuarios.buscar(matricula).getTipo();
+            
+      
+            if(type.equals("funcionario")){
+              JOptionPane.showMessageDialog(janela19, "Este usuário não exite!",
+              "Erro", JOptionPane.ERROR_MESSAGE);
+              return;
+            }
           janela19.dispose();
           abrirjanela20();
           }catch(Exception error){
@@ -1362,8 +1390,17 @@ public void abrirjanela16() {
     devolver.setFont(new Font("Arial", Font.BOLD, 20));
     devolver.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
+        
+        UsuarioAbstrato user = repoUsuarios.buscar(matriculaUsuario);
+        List<Emprestimo> emprestimosDoUser = repoEmprestimos.getEmprestimosPorUsuario(user);
+        if(emprestimosDoUser.isEmpty()) {
+          JOptionPane.showMessageDialog(janela20, "Este usuário não tem emprestimos feitos.",
+              "Erro", JOptionPane.ERROR_MESSAGE);
+              return;
+        }
+
         janela20.dispose();
-        abrirjanela27();
+        abrirjanela27(emprestimosDoUser);
         
       }
     });
@@ -1477,11 +1514,30 @@ public void abrirjanela21() {
               "Erro", JOptionPane.ERROR_MESSAGE);
         } else {
           
+<<<<<<< HEAD
           // Aqui você pode implementar a lógica de autenticação
           //Caso não encontre o titulo fazer: JOptionPane.showMessageDialog(janela22, "Por favor, preencha todos os campos.",
               //"Erro", JOptionPane.ERROR_MESSAGE);
           janela22.dispose();
           abrirjanela31();
+=======
+          try {
+            Livro livro = repoLivros.buscarLivroPorTitulo(titulo);
+            if(livro == null){
+               JOptionPane.showMessageDialog(janela22, "Livro não encontrado!",
+              "Erro", JOptionPane.ERROR_MESSAGE);
+              return;
+            }
+              janela22.dispose();
+              abrirjanela25(livro);
+          /* janela15.dispose();
+          abrirjanela17(livro); */
+          } catch (Exception error) {
+            JOptionPane.showMessageDialog(janela22, error.getMessage(),
+              "Erro", JOptionPane.ERROR_MESSAGE);
+          }
+
+>>>>>>> cdf7b950feef49e7272bfddaa25086dd2f7c27c1
         }
       }
     });
@@ -1529,13 +1585,29 @@ public void abrirjanela23() {
               "Erro", JOptionPane.ERROR_MESSAGE);
         } else {
           
+<<<<<<< HEAD
           // Aqui você pode implementar a lógica de autenticação
           //Caso não encontre o autor fazer: JOptionPane.showMessageDialog(janela23, "Por favor, preencha todos os campos.",
               //"Erro", JOptionPane.ERROR_MESSAGE);
           janela23.dispose();
           abrirjanela31();
+=======
+          try {
+            List<Livro> livros = repoLivros.buscarLivroPorAutor(autor);
+            if (livros.isEmpty()) {JOptionPane.showMessageDialog(janela23, "O autor não tem livros cadastrados no sistema!",
+                "Erro", JOptionPane.ERROR_MESSAGE);
+              return;
+              }
+            janela23.dispose();
+            abrirjanela31(livros);
+            } catch (Exception error) {
+              JOptionPane.showMessageDialog(janela23, error.getMessage(),
+                "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+          }
+>>>>>>> cdf7b950feef49e7272bfddaa25086dd2f7c27c1
         }
-      }
+      
     });
 
     janela23.add(rotuloAutor);
@@ -1579,11 +1651,28 @@ public void abrirjanela23() {
               "Erro", JOptionPane.ERROR_MESSAGE);
         } else {
           
+<<<<<<< HEAD
           // Aqui você pode implementar a lógica de autenticação
           //Caso não encontre o isbn fazer: JOptionPane.showMessageDialog(janela24, "Por favor, preencha todos os campos.",
               //"Erro", JOptionPane.ERROR_MESSAGE);
           janela24.dispose();
           abrirjanela31();
+=======
+          try {
+            Livro livro = repoLivros.buscarLivroPorISBN(isbn);
+             if(livro == null){
+                JOptionPane.showMessageDialog(janela24, "Livro não encontrado!",
+               "Erro", JOptionPane.ERROR_MESSAGE);
+               return;
+             }
+           janela24.dispose();
+           abrirjanela25(livro);
+           } catch (Exception error) {
+             JOptionPane.showMessageDialog(janela24, error.getMessage(),
+               "Erro", JOptionPane.ERROR_MESSAGE);
+           }
+
+>>>>>>> cdf7b950feef49e7272bfddaa25086dd2f7c27c1
         }
       }
     });
@@ -1601,7 +1690,7 @@ public void abrirjanela23() {
 
 
 
-  public void abrirjanela25(){
+  public void abrirjanela25(Livro livro){
         JFrame janela25 = new JFrame("Detalhes do Livro");
         janela25.setSize(500,500);
         janela25.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -1616,7 +1705,13 @@ public void abrirjanela23() {
         remover.setBackground(fundobotao);
         remover.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {
-        //logica para associar o emprestimo do livro ao usuario
+        try {
+          Emprestimo emprestimo = new Emprestimo(livro, repoUsuarios.buscar(matriculaUsuario));
+          repoEmprestimos.cadastrarEmprestimo(emprestimo);
+        } catch (Exception error) {
+          JOptionPane.showMessageDialog(janela25, error.getMessage(),
+              "Erro", JOptionPane.ERROR_MESSAGE);
+        }
         janela25.dispose();
         abrirjanela26();
         }
@@ -1676,6 +1771,7 @@ public void abrirjanela23() {
 
 
         // Definir valores dos campos de texto
+<<<<<<< HEAD
         
         campoTitulo.setText("Livro Exemplo");
         campoAutor.setText("Autor Exemplo");
@@ -1683,6 +1779,17 @@ public void abrirjanela23() {
         campoEditora.setText("Editora Exemplo");
         campoAnoPublicacao.setText("01/01/2022");
         campoQuantidadeDisponivel.setText("5");
+=======
+/*         campoId.setText("id"); */
+        campoTitulo.setText(livro.getTitulo());
+        campoAutor.setText(livro.getAutor());
+        campoISBN.setText(livro.getISBN());
+        /* campoEmail.setText(livro.get); */
+        campoEditora.setText(livro.getEditora());
+        campoDataPublicacao.setText(Integer.toString(livro.getAnoPublicacao()));
+/*         campoQuantidadeTotal.setText("10"); */
+        campoQuantidadeDisponivel.setText(Integer.toString(livro.getQuantidadeDisponivel()));
+>>>>>>> cdf7b950feef49e7272bfddaa25086dd2f7c27c1
 
        
         janela25.add(rotuloTitulo);
@@ -1751,8 +1858,8 @@ public void abrirjanela23() {
 
   
 
-public void abrirjanela27() {
-        
+public void abrirjanela27(List<Emprestimo> listaEmprestimos) {
+
         JFrame janela27 = new JFrame("Devolução de Livro");
         janela27.setSize(500, 500);
         janela27.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -1766,11 +1873,18 @@ public void abrirjanela27() {
         rotuloSelecao.setBounds(120, 90, 300, 30);
 
         JComboBox<String> comboBoxLivros = new JComboBox<String>();
+<<<<<<< HEAD
         comboBoxLivros.setBounds(100, 140, 300, 30);
         comboBoxLivros.addItem("Livro 1");
         comboBoxLivros.addItem("Livro 2");
         comboBoxLivros.addItem("Livro 3");
         // Adicione aqui os livros emprestados
+=======
+        comboBoxLivros.setBounds(50, 60, 300, 20);
+        for (Emprestimo emprestimo : listaEmprestimos) {
+          comboBoxLivros.addItem(emprestimo.getLivro().getTitulo());
+        }
+>>>>>>> cdf7b950feef49e7272bfddaa25086dd2f7c27c1
 
         JButton botaoDevolver = new JButton("Devolver");
         botaoDevolver.setBounds(190, 220, 120, 40);
@@ -1779,11 +1893,16 @@ public void abrirjanela27() {
         botaoDevolver.setFont(new Font("Arial", Font.BOLD, 20));
         botaoDevolver.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String livroSelecionado = (String) comboBoxLivros.getSelectedItem();
+                String livroSelecionadoString = (String) comboBoxLivros.getSelectedItem();
+                Livro livroSelecionado = repoLivros.buscarLivroPorTitulo(livroSelecionadoString);
+                UsuarioAbstrato user = repoUsuarios.buscar(matriculaUsuario);
+
+              Emprestimo emprestimo = repoEmprestimos.getEmprestimoPorUsuarioELivro(user, livroSelecionado);
                 if (livroSelecionado != null) {
-                    // Realizar ação de devolução do livro
+                    
+
                     janela27.dispose();
-                    abrirjanela28();
+                    abrirjanela28(emprestimo);
                 }
             }
         });
@@ -1802,7 +1921,7 @@ public void abrirjanela27() {
 
 
 
-  public void abrirjanela28(){
+  public void abrirjanela28(Emprestimo emprestimo){
         JFrame janela28 = new JFrame("Detalhes do Livro");
         janela28.setSize(500,500);
         janela28.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -1819,7 +1938,13 @@ public void abrirjanela27() {
 
         devolver.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {
-        //logica para associar o emprestimo do livro ao usuario
+          try {
+            repoEmprestimos.removerEmprestimo(emprestimo);
+          } catch (Exception error) {
+            JOptionPane.showMessageDialog(janela28, error.getMessage(),
+              "Erro", JOptionPane.ERROR_MESSAGE);
+          }
+        
         janela28.dispose();
         abrirjanela29();
         }
@@ -1832,7 +1957,13 @@ public void abrirjanela27() {
         paydevolver.setFont(new Font("Arial", Font.BOLD, 15));
         paydevolver.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {
-        //logica para associar o emprestimo do livro ao usuario
+          try {
+            repoEmprestimos.removerEmprestimo(emprestimo);
+          } catch (Exception error) {
+            JOptionPane.showMessageDialog(janela28, error.getMessage(),
+              "Erro", JOptionPane.ERROR_MESSAGE);
+          }
+        
         janela28.dispose();
         abrirjanela29();
         }
@@ -1881,10 +2012,18 @@ public void abrirjanela27() {
 
         
         // linkar valores dos campos de texto
-        dataemprestimo.setText("03/02/2023");
-        datadevolucao.setText("23/02/2023");
-        atraso.setText("15 dias");
-        multa.setText("10 reais");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String dataEmprestimoFormatada = emprestimo.getDataEmprestimo().format(formatter);
+        String dataEmprestimoDevolucao = emprestimo.getDataDevolucao().format(formatter);
+        
+
+
+        dataemprestimo.setText(dataEmprestimoFormatada);
+        datadevolucao.setText(dataEmprestimoDevolucao);
+
+
+        atraso.setText(String.valueOf(emprestimo.calcularDiasAtraso()));
+        multa.setText(String.valueOf(emprestimo.calcularMulta()));
         
 
         
@@ -1949,7 +2088,9 @@ public void abrirjanela27() {
 
 
 
-  public void abrirjanela30(){
+  public void abrirjanela30(List<Livro> livros){ 
+    
+
   JFrame janela30 = new JFrame("Selecione o livro buscado:");
         janela30.setSize(500, 500);
         janela30.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -1961,11 +2102,19 @@ public void abrirjanela27() {
         rotuloSelecao.setBounds(120, 90, 300, 30);
 
         JComboBox<String> comboBoxLivros = new JComboBox<String>();
+<<<<<<< HEAD
         comboBoxLivros.setBounds(100, 140, 300, 30);
         comboBoxLivros.addItem("Livro 1");
         comboBoxLivros.addItem("Livro 2");
         comboBoxLivros.addItem("Livro 3");
         // Adicione aqui os livros encontrados
+=======
+        comboBoxLivros.setBounds(50, 60, 300, 20);
+        for (Livro livro : livros) {
+        comboBoxLivros.addItem(livro.getTitulo());
+        }
+
+>>>>>>> cdf7b950feef49e7272bfddaa25086dd2f7c27c1
 
         JButton botao = new JButton("Buscar");
         botao.setBounds(190, 220, 120, 40);
@@ -1974,11 +2123,17 @@ public void abrirjanela27() {
         botao.setFont(new Font("Arial", Font.BOLD, 20));
         botao.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String livroSelecionado = (String) comboBoxLivros.getSelectedItem();
+                String livroSelecionadoString = (String) comboBoxLivros.getSelectedItem();
+                Livro livroSelecionado = repoLivros.buscarLivroPorTitulo(livroSelecionadoString);
                 if (livroSelecionado != null) {
-                    // Realizar ação de busca do livro
-                    janela30.dispose();
-                    abrirjanela17(livro);
+                    try {
+                      janela30.dispose();
+                    abrirjanela17(livroSelecionado);
+                    } catch (Exception error) {
+                      JOptionPane.showMessageDialog(janela30, error.getMessage(),
+              "Erro", JOptionPane.ERROR_MESSAGE);
+                    }
+                    
                 }
             }
         });
@@ -1990,7 +2145,10 @@ public void abrirjanela27() {
         janela30.setVisible(true);
       }
 
+      public void abrirjanela31(List<Livro> livros){ 
+    
 
+<<<<<<< HEAD
 
 
 
@@ -1999,6 +2157,9 @@ public void abrirjanela27() {
 
       public void abrirjanela31(){
         JFrame janela31 = new JFrame("Selecione o livro buscado:");
+=======
+  JFrame janela31 = new JFrame("Selecione o livro buscado:");
+>>>>>>> cdf7b950feef49e7272bfddaa25086dd2f7c27c1
         janela31.setSize(500, 500);
         janela31.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         janela31.setLayout(null);
@@ -2006,6 +2167,7 @@ public void abrirjanela27() {
 
         JLabel rotuloSelecao = new JLabel("Selecione o livro buscado:");
         rotuloSelecao.setFont(new Font("Arial", Font.BOLD, 20));
+<<<<<<< HEAD
         rotuloSelecao.setBounds(120, 90, 300, 30);
 
         JComboBox<String> comboBoxLivros = new JComboBox<String>();
@@ -2027,6 +2189,35 @@ public void abrirjanela27() {
                     // Realizar ação de busca do livro
                     janela31.dispose();
                     abrirjanela25(livro);
+=======
+        rotuloSelecao.setBounds(50, 30, 300, 30);
+
+        JComboBox<String> comboBoxLivros = new JComboBox<String>();
+        comboBoxLivros.setBounds(50, 60, 300, 20);
+        for (Livro livro : livros) {
+        comboBoxLivros.addItem(livro.getTitulo());
+        }
+
+
+        JButton botao = new JButton("Buscar");
+        botao.setBounds(150, 100, 120, 40);
+        botao.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String livroSelecionadoString = (String) comboBoxLivros.getSelectedItem();
+                Livro livroSelecionado = repoLivros.buscarLivroPorTitulo(livroSelecionadoString);
+                UsuarioAbstrato user = repoUsuarios.buscar(matriculaUsuario);
+                Emprestimo emprestimo = repoEmprestimos.getEmprestimoPorUsuarioELivro(user, livroSelecionado);
+                if (livroSelecionado != null) {
+                    try {
+                      repoEmprestimos.removerEmprestimo(emprestimo);
+                      janela31.dispose();
+                    abrirjanela25(livroSelecionado);
+                    } catch (Exception error) {
+                      JOptionPane.showMessageDialog(janela31, error.getMessage(),
+              "Erro", JOptionPane.ERROR_MESSAGE);
+                    }
+                    
+>>>>>>> cdf7b950feef49e7272bfddaa25086dd2f7c27c1
                 }
             }
         });
@@ -2038,7 +2229,11 @@ public void abrirjanela27() {
         janela31.setVisible(true);
       }
 
+<<<<<<< HEAD
   public static void main(String[] args) {
+=======
+ /*  public static void main(String[] args) {
+>>>>>>> cdf7b950feef49e7272bfddaa25086dd2f7c27c1
     SwingUtilities.invokeLater(() -> new MinhaBibliotecaGUI());
-  }
+  } */
 }

@@ -21,7 +21,7 @@ public class Emprestimo implements Serializable {
         this.livro = livro;
         this.usuario = usuario;
         this.dataEmprestimo = LocalDate.now();
-        this.dataDevolucao = null;
+        this.dataDevolucao = LocalDate.now().minusDays(5);
     }
 
     public Livro getLivro() {
@@ -45,16 +45,21 @@ public class Emprestimo implements Serializable {
     }
 
     public void setDataDevolucao(LocalDate dataDevolucao) {
-        this.dataDevolucao = dataDevolucao;
+        this.dataDevolucao = LocalDate.now().minusDays(5);
+    }
+
+    public long calcularDiasAtraso() {
+        if (dataDevolucao.isBefore(dataEmprestimo)) {
+            return ChronoUnit.DAYS.between(dataDevolucao, LocalDate.now());
+        } else {
+            return 0;
+        }
     }
 
     public double calcularMulta() {
         double valorMultaPorDia = 0.0;
-        
-        if (dataDevolucao.isBefore(LocalDate.now())) {
-            long diasAtraso = ChronoUnit.DAYS.between(dataDevolucao, LocalDate.now());
-            System.out.println("teste" + diasAtraso);
-            
+
+        if (calcularDiasAtraso()>0) {
             if(usuario instanceof Funcionario){
                 valorMultaPorDia = ((Funcionario) usuario).getMulta();
             }
@@ -62,7 +67,7 @@ public class Emprestimo implements Serializable {
                 valorMultaPorDia = ((Aluno) usuario).getMulta();
             }
             
-            return valorMultaPorDia * diasAtraso;
+            return valorMultaPorDia * calcularDiasAtraso();
         }
         
         return 0.0;
