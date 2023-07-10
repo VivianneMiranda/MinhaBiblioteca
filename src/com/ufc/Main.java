@@ -3,6 +3,7 @@ package com.ufc;
 import com.ufc.biblioteca.BibliotecaCentral;
 import com.ufc.biblioteca.Emprestimo;
 import com.ufc.biblioteca.RepositorioEmprestimo;
+import com.ufc.gui.MinhaBibliotecaGUI;
 import com.ufc.livro.Livro;
 import com.ufc.livro.repositorio.RepositorioLivro;
 import com.ufc.usuario.Aluno;
@@ -16,9 +17,10 @@ import org.junit.Assert;
 class Main {
     public static void main(String[] args) {
         try {
+            new MinhaBibliotecaGUI();
             //testaSerializacao();
             //testaDesserializacao();
-            testaEmprestimo();
+            /* testaEmprestimo(); */
         } catch (Exception e) {
             e.printStackTrace();
         }
