@@ -1,6 +1,9 @@
 package com.ufc.gui;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.swing.*;
@@ -1805,12 +1808,12 @@ public void abrirjanela27(List<Emprestimo> listaEmprestimos) {
                 Livro livroSelecionado = repoLivros.buscarLivroPorTitulo(livroSelecionadoString);
                 UsuarioAbstrato user = repoUsuarios.buscar(matriculaUsuario);
 
-
+              Emprestimo emprestimo = repoEmprestimos.getEmprestimoPorUsuarioELivro(user, livroSelecionado);
                 if (livroSelecionado != null) {
                     
 
                     janela27.dispose();
-                    abrirjanela28();
+                    abrirjanela28(emprestimo);
                 }
             }
         });
@@ -1829,7 +1832,7 @@ public void abrirjanela27(List<Emprestimo> listaEmprestimos) {
 
 
 
-  public void abrirjanela28(){
+  public void abrirjanela28(Emprestimo emprestimo){
         JFrame janela28 = new JFrame("Detalhes do Livro");
         janela28.setSize(500,500);
         janela28.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -1841,7 +1844,13 @@ public void abrirjanela27(List<Emprestimo> listaEmprestimos) {
         devolver.setBounds(100, 170, 120, 40);
         devolver.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {
-        //logica para associar o emprestimo do livro ao usuario
+          try {
+            repoEmprestimos.removerEmprestimo(emprestimo);
+          } catch (Exception error) {
+            JOptionPane.showMessageDialog(janela28, error.getMessage(),
+              "Erro", JOptionPane.ERROR_MESSAGE);
+          }
+        
         janela28.dispose();
         abrirjanela29();
         }
@@ -1851,7 +1860,13 @@ public void abrirjanela27(List<Emprestimo> listaEmprestimos) {
         paydevolver.setBounds(200, 170, 120, 40);
         paydevolver.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {
-        //logica para associar o emprestimo do livro ao usuario
+          try {
+            repoEmprestimos.removerEmprestimo(emprestimo);
+          } catch (Exception error) {
+            JOptionPane.showMessageDialog(janela28, error.getMessage(),
+              "Erro", JOptionPane.ERROR_MESSAGE);
+          }
+        
         janela28.dispose();
         abrirjanela29();
         }
@@ -1891,10 +1906,18 @@ public void abrirjanela27(List<Emprestimo> listaEmprestimos) {
 
         
         // linkar valores dos campos de texto
-        dataemprestimo.setText("03/02/2023");
-        datadevolucao.setText("23/02/2023");
-        atraso.setText("15 dias");
-        multa.setText("10 reais");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String dataEmprestimoFormatada = emprestimo.getDataEmprestimo().format(formatter);
+        String dataEmprestimoDevolucao = emprestimo.getDataDevolucao().format(formatter);
+        
+
+
+        dataemprestimo.setText(dataEmprestimoFormatada);
+        datadevolucao.setText(dataEmprestimoDevolucao);
+
+
+        atraso.setText(String.valueOf(emprestimo.calcularDiasAtraso()));
+        multa.setText(String.valueOf(emprestimo.calcularMulta()));
         
 
         janela28.add(dataemprestimo);
@@ -2023,8 +2046,11 @@ public void abrirjanela27(List<Emprestimo> listaEmprestimos) {
             public void actionPerformed(ActionEvent e) {
                 String livroSelecionadoString = (String) comboBoxLivros.getSelectedItem();
                 Livro livroSelecionado = repoLivros.buscarLivroPorTitulo(livroSelecionadoString);
+                UsuarioAbstrato user = repoUsuarios.buscar(matriculaUsuario);
+                Emprestimo emprestimo = repoEmprestimos.getEmprestimoPorUsuarioELivro(user, livroSelecionado);
                 if (livroSelecionado != null) {
                     try {
+                      repoEmprestimos.removerEmprestimo(emprestimo);
                       janela31.dispose();
                     abrirjanela25(livroSelecionado);
                     } catch (Exception error) {
