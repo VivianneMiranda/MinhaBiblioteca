@@ -4,7 +4,7 @@ public class LNCException extends Exception{
   private String ISBN;
   
   public LNCException(String ISBN){
-    super("Exceção de Livro Não Encontrado [ISBN: " + ISBN +"]");
+    super("Exceção de Livro Não Cadastadro [ISBN: " + ISBN +"]");
     this.ISBN = ISBN;
   }
 

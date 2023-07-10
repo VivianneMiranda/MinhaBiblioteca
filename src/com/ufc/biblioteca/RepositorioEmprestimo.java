@@ -25,6 +25,19 @@ public class RepositorioEmprestimo {
         serializar();
     }
 
+    public List<Emprestimo> getEmprestimosPorUsuario(UsuarioAbstrato usuario) {
+        List<Emprestimo> emprestimosPorUsuario = new ArrayList<>();
+
+        for (Emprestimo emprestimo : emprestimos) {
+            if (emprestimo.getUsuario().equals(usuario)) {
+                emprestimosPorUsuario.add(emprestimo);
+            }
+        }
+
+        serializar();
+        return emprestimosPorUsuario;
+    }
+
     public List<Emprestimo> listar() {
         System.out.println(new ArrayList<>(emprestimos));
         return new ArrayList<>(emprestimos);
