@@ -1,8 +1,7 @@
 package com.ufc.gui;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
+
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
@@ -149,13 +148,6 @@ private String matriculaUsuario;
     janela2.setVisible(true);
   }
 
-
-
-
-
-
-
-  
   // aluno ou funcionario
   public void abrirjanela3() {
     JFrame janela3 = new JFrame("janela 3");
@@ -194,6 +186,21 @@ private String matriculaUsuario;
       }
     });
 
+    JButton voltar = new JButton("voltar");
+    voltar.setBounds(10, 420, 50, 20);
+    voltar.setFont(new Font("Arial", Font.BOLD, 10));
+    voltar.setForeground(letra);
+    voltar.setBorder(null);
+    voltar.setBackground(fundobotao);
+    voltar.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+      janela3.dispose();
+      abrirjanela2();
+        
+
+      }
+    });
+    janela3.getContentPane().add(voltar);
     janela3.getContentPane().setLayout(null);
     janela3.getContentPane().add(opcaoaluno);
     janela3.getContentPane().add(opcaofuncionario);
@@ -288,6 +295,21 @@ private String matriculaUsuario;
       }
     });
 
+    JButton voltar = new JButton("voltar");
+    voltar.setBounds(10, 420, 50, 20);
+    voltar.setFont(new Font("Arial", Font.BOLD, 10));
+    voltar.setForeground(letra);
+    voltar.setBorder(null);
+    voltar.setBackground(fundobotao);
+    voltar.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+      janela4.dispose();
+      abrirjanela3();
+        
+
+      }
+    });
+    janela4.getContentPane().add(voltar);
     janela4.add(rotuloIdentidade);
     janela4.add(rotuloNome);
     janela4.add(rotuloMatricula);
@@ -326,7 +348,7 @@ private String matriculaUsuario;
 
     janela5.add(msgaluno);
 
-    JButton botaoacervofuncionarios = new JButton("Clique aqui para ser redirecionado ao acervo de alunos");
+    JButton botaoacervofuncionarios = new JButton("Clique aqui para o login");
     botaoacervofuncionarios.setBounds(20, 220, 450, 30);
     botaoacervofuncionarios.setForeground(letra);
     botaoacervofuncionarios.setBackground(fundobotao);
@@ -335,7 +357,7 @@ private String matriculaUsuario;
       public void actionPerformed(ActionEvent e) {
 
         janela5.dispose();
-        abrirjanela20();
+        abrirjanela19();
       }
     });
 
@@ -431,7 +453,21 @@ private String matriculaUsuario;
         }
       }
     });
+    JButton voltar = new JButton("voltar");
+    voltar.setBounds(10, 420, 50, 20);
+    voltar.setFont(new Font("Arial", Font.BOLD, 10));
+    voltar.setForeground(letra);
+    voltar.setBorder(null);
+    voltar.setBackground(fundobotao);
+    voltar.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+      janela6.dispose();
+      abrirjanela3();
+        
 
+      }
+    });
+    janela6.getContentPane().add(voltar);
     janela6.add(rotuloIdentidade);
     janela6.add(rotuloNome);
     janela6.add(rotuloMatricula);
@@ -473,7 +509,7 @@ private String matriculaUsuario;
 
     janela7.add(msgfuncionario);
 
-    JButton botaofuncionario = new JButton("Clique aqui para ser redirecionado ao acervo de funcionarios");
+    JButton botaofuncionario = new JButton("Clique aqui para ser redirecionado ao login");
     botaofuncionario.setBounds(0, 220, 490, 30);
     botaofuncionario.setForeground(letra);
     botaofuncionario.setBackground(fundobotao);
@@ -482,7 +518,7 @@ private String matriculaUsuario;
       public void actionPerformed(ActionEvent e) {
 
         janela7.dispose();
-        abrirjanela10();
+        abrirjanela9();
       }
     });
 
@@ -539,7 +575,21 @@ private String matriculaUsuario;
         abrirjanela9();
       }
     });
+    JButton voltar = new JButton("voltar");
+    voltar.setBounds(10, 420, 50, 20);
+    voltar.setFont(new Font("Arial", Font.BOLD, 10));
+    voltar.setForeground(letra);
+    voltar.setBorder(null);
+    voltar.setBackground(fundobotao);
+    voltar.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+      janela8.dispose();
+      abrirjanela2();
+        
 
+      }
+    });
+    janela8.getContentPane().add(voltar);
     janela8.getContentPane().setLayout(null);
     janela8.getContentPane().add(opcaoaluno);
     janela8.getContentPane().add(opcaofuncionario);
@@ -615,6 +665,21 @@ private String matriculaUsuario;
       }
     });
 
+    JButton voltar = new JButton("voltar");
+    voltar.setBounds(10, 420, 50, 20);
+    voltar.setFont(new Font("Arial", Font.BOLD, 10));
+    voltar.setForeground(letra);
+    voltar.setBorder(null);
+    voltar.setBackground(fundobotao);
+    voltar.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+      janela9.dispose();
+      abrirjanela8();
+        
+
+      }
+    });
+    janela9.getContentPane().add(voltar);
     janela9.add(rotuloMatricula);
     janela9.add(campoMatricula);
     janela9.add(rotuloSenha);
@@ -669,7 +734,21 @@ private String matriculaUsuario;
         abrirjanela13();
       }
     });
-
+JButton voltar = new JButton("Logout");
+        voltar.setBounds(10, 420, 50, 20);
+        voltar.setFont(new Font("Arial", Font.BOLD, 10));
+        voltar.setForeground(letra);
+        voltar.setBorder(null);
+        voltar.setBackground(fundobotao);
+        voltar.addActionListener(new ActionListener() {
+          public void actionPerformed(ActionEvent e) {
+          janela10.dispose();
+          abrirjanela9();
+            
+    
+          }
+        });
+        janela10.getContentPane().add(voltar);
     janela10.getContentPane().setLayout(null);
     janela10.getContentPane().add(cadastrarl);
     janela10.getContentPane().add(buscar);
@@ -731,29 +810,22 @@ private String matriculaUsuario;
         JTextField campoEditora = new JTextField();
         campoEditora.setBounds(220, 230, 250, 30);
 
-        JLabel rotuloDataPublicacao = new JLabel("Data de Publicação:");
-        rotuloDataPublicacao.setFont(new Font("Arial", Font.BOLD, 16));
-        rotuloDataPublicacao.setBounds(30, 270, 170, 20);
-
-        JTextField campoDataPublicacao = new JTextField();
-        campoDataPublicacao.setBounds(220, 270, 250, 30);
-
         JLabel rotuloAnoPublicacao = new JLabel("Ano de publicação:");
         rotuloAnoPublicacao.setFont(new Font("Arial", Font.BOLD, 16));
-        rotuloAnoPublicacao.setBounds(30, 310, 170, 20);
+        rotuloAnoPublicacao.setBounds(30, 270, 170, 20);
 
         JTextField campoAnoPublicacao = new JTextField();
-        campoAnoPublicacao.setBounds(220, 310, 250, 30);
+        campoAnoPublicacao.setBounds(220, 270, 250, 30);
 
         JLabel rotuloQuantidadeDisponivel = new JLabel("Quantidade Disponível:");
         rotuloQuantidadeDisponivel.setFont(new Font("Arial", Font.BOLD, 16));
-        rotuloQuantidadeDisponivel.setBounds(30, 350, 200, 20);
+        rotuloQuantidadeDisponivel.setBounds(30, 310, 200, 20);
 
         JTextField campoQuantidadeDisponivel = new JTextField();
-        campoQuantidadeDisponivel.setBounds(220, 350, 250, 30);
+        campoQuantidadeDisponivel.setBounds(220, 310, 250, 30);
 
         JButton botaoCadastrar = new JButton("Cadastrar");
-        botaoCadastrar.setBounds(280, 400, 180, 40);
+        botaoCadastrar.setBounds(280, 360, 180, 40);
         botaoCadastrar.setFont(new Font("Arial", Font.BOLD, 20));
         botaoCadastrar.setForeground(letra);
         botaoCadastrar.setBackground(fundobotao);
@@ -762,24 +834,21 @@ private String matriculaUsuario;
             public void actionPerformed(ActionEvent e) {
                 try {
                     // Obter os valores dos campos de texto
-                    String idString = campoId.getText();
                     String titulo = campoTitulo.getText();
                     String autor = campoAutor.getText();
                     String isbn = campoISBN.getText();
                     String editora = campoEditora.getText();
-                    String dataPublicacaoString = campoDataPublicacao.getText();
                     String anoPublicacaoString = campoAnoPublicacao.getText();
                     String quantidadeDisponivelString = campoQuantidadeDisponivel.getText();
 
                     // Verificar se os campos obrigatórios estão preenchidos
-                    if (idString.isEmpty() || isbn.isEmpty() || anoPublicacaoString.isEmpty() || quantidadeDisponivelString.isEmpty()) {
+                    if (isbn.isEmpty() || anoPublicacaoString.isEmpty() || quantidadeDisponivelString.isEmpty()) {
                         JOptionPane.showMessageDialog(janela11, "Por favor, preencha todos os campos obrigatórios.",
                                 "Erro", JOptionPane.ERROR_MESSAGE);
                         return;
                     }
 
                     // Converter valores para os tipos corretos
-                    int id = Integer.parseInt(idString);
                     int AnoPublicacao = Integer.parseInt(anoPublicacaoString);
                     int quantidadeDisponivel = Integer.parseInt(quantidadeDisponivelString);
 
@@ -801,7 +870,21 @@ private String matriculaUsuario;
             }
         });
 
-        // Adiciona os componentes à janela11
+        JButton voltar = new JButton("voltar");
+    voltar.setBounds(10, 420, 50, 20);
+    voltar.setFont(new Font("Arial", Font.BOLD, 10));
+    voltar.setForeground(letra);
+    voltar.setBorder(null);
+    voltar.setBackground(fundobotao);
+    voltar.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+      janela11.dispose();
+      abrirjanela10();
+        
+
+      }
+    });
+    janela11.getContentPane().add(voltar);
         janela11.add(rotuloId);
         janela11.add(campoId);
         janela11.add(rotuloTitulo);
@@ -812,8 +895,6 @@ private String matriculaUsuario;
         janela11.add(campoISBN);
         janela11.add(rotuloEditora);
         janela11.add(campoEditora);
-        janela11.add(rotuloDataPublicacao);
-        janela11.add(campoDataPublicacao);
         janela11.add(rotuloAnoPublicacao);
         janela11.add(campoAnoPublicacao);
         janela11.add(rotuloQuantidadeDisponivel);
@@ -893,7 +974,7 @@ private String matriculaUsuario;
       }
     });
 
-   JButton porisbn = new JButton("inbs");
+   JButton porisbn = new JButton("ISBN");
     porisbn.setBounds(280, 100, 120, 40);
     porisbn.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
@@ -902,7 +983,21 @@ private String matriculaUsuario;
         
       }
     });
+    JButton voltar = new JButton("voltar");
+    voltar.setBounds(10, 420, 50, 20);
+    voltar.setFont(new Font("Arial", Font.BOLD, 10));
+    voltar.setForeground(letra);
+    voltar.setBorder(null);
+    voltar.setBackground(fundobotao);
+    voltar.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+      janela13.dispose();
+      abrirjanela10();
+        
 
+      }
+    });
+    janela13.getContentPane().add(voltar);
     janela13.getContentPane().setLayout(null);
     janela13.getContentPane().add(portitulo);
     janela13.getContentPane().add(porautor);
@@ -963,7 +1058,21 @@ private String matriculaUsuario;
         }
       }
     });
+    JButton voltar = new JButton("voltar");
+    voltar.setBounds(10, 420, 50, 20);
+    voltar.setFont(new Font("Arial", Font.BOLD, 10));
+    voltar.setForeground(letra);
+    voltar.setBorder(null);
+    voltar.setBackground(fundobotao);
+    voltar.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+      janela14.dispose();
+      abrirjanela13();
+        
 
+      }
+    });
+    janela14.getContentPane().add(voltar);
     janela14.add(rotuloAutor);
     janela14.add(campoAutor);
     janela14.add(botaoBuscar);
@@ -1019,7 +1128,21 @@ private String matriculaUsuario;
         }
       }
     });
+    JButton voltar = new JButton("voltar");
+    voltar.setBounds(10, 420, 50, 20);
+    voltar.setFont(new Font("Arial", Font.BOLD, 10));
+    voltar.setForeground(letra);
+    voltar.setBorder(null);
+    voltar.setBackground(fundobotao);
+    voltar.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+      janela15.dispose();
+      abrirjanela13();
+        
 
+      }
+    });
+    janela15.getContentPane().add(voltar);
     janela15.add(rotuloTitulo);
     janela15.add(campoTitulo);
     janela15.add(botaoBuscar);
@@ -1078,7 +1201,21 @@ public void abrirjanela16() {
         }
       }
     });
+    JButton voltar = new JButton("voltar");
+    voltar.setBounds(10, 420, 50, 20);
+    voltar.setFont(new Font("Arial", Font.BOLD, 10));
+    voltar.setForeground(letra);
+    voltar.setBorder(null);
+    voltar.setBackground(fundobotao);
+    voltar.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+      janela16.dispose();
+      abrirjanela13();
+        
 
+      }
+    });
+    janela16.getContentPane().add(voltar);
     janela16.add(rotuloISBN);
     janela16.add(campoISBN);
     janela16.add(botaoBuscar);
@@ -1199,7 +1336,21 @@ public void abrirjanela16() {
         campoDataPublicacao.setText(String.valueOf(livro.getAnoPublicacao()));
         /* campoQuantidadeTotal.setText(livro.get); */
         campoQuantidadeDisponivel.setText(String.valueOf(livro.getQuantidadeDisponivel()));
-
+        JButton voltar = new JButton("voltar");
+        voltar.setBounds(10, 420, 50, 20);
+        voltar.setFont(new Font("Arial", Font.BOLD, 10));
+        voltar.setForeground(letra);
+        voltar.setBorder(null);
+        voltar.setBackground(fundobotao);
+        voltar.addActionListener(new ActionListener() {
+          public void actionPerformed(ActionEvent e) {
+          janela17.dispose();
+          abrirjanela13();
+            
+    
+          }
+        });
+        janela17.getContentPane().add(voltar);
         janela17.add(rotuloId);
         janela17.add(campoId);
         janela17.add(rotuloTitulo);
@@ -1318,7 +1469,21 @@ public void abrirjanela16() {
         }
       }
     });
+    JButton voltar = new JButton("voltar");
+    voltar.setBounds(10, 420, 50, 20);
+    voltar.setFont(new Font("Arial", Font.BOLD, 10));
+    voltar.setForeground(letra);
+    voltar.setBorder(null);
+    voltar.setBackground(fundobotao);
+    voltar.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+      janela19.dispose();
+      abrirjanela8();
+        
 
+      }
+    });
+    janela19.getContentPane().add(voltar);
     janela19.add(rotuloMatricula);
     janela19.add(campoMatricula);
     janela19.add(rotuloSenha);
@@ -1373,7 +1538,21 @@ public void abrirjanela16() {
         
       }
     });
-
+JButton voltar = new JButton("Logout");
+        voltar.setBounds(10, 420, 50, 20);
+        voltar.setFont(new Font("Arial", Font.BOLD, 10));
+        voltar.setForeground(letra);
+        voltar.setBorder(null);
+        voltar.setBackground(fundobotao);
+        voltar.addActionListener(new ActionListener() {
+          public void actionPerformed(ActionEvent e) {
+          janela20.dispose();
+          abrirjanela19();
+            
+    
+          }
+        });
+        janela20.getContentPane().add(voltar);
     janela20.getContentPane().setLayout(null);
     janela20.getContentPane().add(buscar);
     janela20.getContentPane().add(devolver);
@@ -1414,7 +1593,7 @@ public void abrirjanela21() {
       }
     });
 
-   JButton porisbn = new JButton("inbs");
+   JButton porisbn = new JButton("ISBN");
     porisbn.setBounds(280, 100, 120, 40);
     porisbn.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
@@ -1423,7 +1602,21 @@ public void abrirjanela21() {
         
       }
     });
+    JButton voltar = new JButton("voltar");
+    voltar.setBounds(10, 420, 50, 20);
+    voltar.setFont(new Font("Arial", Font.BOLD, 10));
+    voltar.setForeground(letra);
+    voltar.setBorder(null);
+    voltar.setBackground(fundobotao);
+    voltar.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+      janela21.dispose();
+      abrirjanela20();
+        
 
+      }
+    });
+    janela21.getContentPane().add(voltar);
     janela21.getContentPane().setLayout(null);
     janela21.getContentPane().add(portitulo);
     janela21.getContentPane().add(porautor);
@@ -1483,7 +1676,22 @@ public void abrirjanela21() {
         }
       }
     });
+    JButton voltar = new JButton("voltar");
+    voltar.setBounds(10, 420, 50, 20);
+    voltar.setFont(new Font("Arial", Font.BOLD, 10));
+    voltar.setForeground(letra);
+    voltar.setBorder(null);
+    voltar.setBackground(fundobotao);
+    voltar.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+      janela22.dispose();
+      abrirjanela21();
+        
 
+      }
+    });
+    janela22.getContentPane().add(voltar);
+   
     janela22.add(rotuloTitulo);
     janela22.add(campoTitulo);
     janela22.add(botaoBuscar);
@@ -1540,7 +1748,22 @@ public void abrirjanela23() {
         }
       
     });
+    JButton voltar = new JButton("voltar");
+    voltar.setBounds(10, 420, 50, 20);
+    voltar.setFont(new Font("Arial", Font.BOLD, 10));
+    voltar.setForeground(letra);
+    voltar.setBorder(null);
+    voltar.setBackground(fundobotao);
+    voltar.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+      janela23.dispose();
+      abrirjanela21();
+        
 
+      }
+    });
+    janela23.getContentPane().add(voltar);
+   
     janela23.add(rotuloAutor);
     janela23.add(campoAutor);
     janela23.add(botaoBuscar);
@@ -1596,7 +1819,22 @@ public void abrirjanela23() {
         }
       }
     });
+    JButton voltar = new JButton("voltar");
+    voltar.setBounds(10, 420, 50, 20);
+    voltar.setFont(new Font("Arial", Font.BOLD, 10));
+    voltar.setForeground(letra);
+    voltar.setBorder(null);
+    voltar.setBackground(fundobotao);
+    voltar.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+      janela24.dispose();
+      abrirjanela21();
+        
 
+      }
+    });
+    janela24.getContentPane().add(voltar);
+   
     janela24.add(rotuloISBN);
     janela24.add(campoISBN);
     janela24.add(botaoBuscar);
@@ -1716,7 +1954,21 @@ public void abrirjanela23() {
         campoDataPublicacao.setText(Integer.toString(livro.getAnoPublicacao()));
 /*         campoQuantidadeTotal.setText("10"); */
         campoQuantidadeDisponivel.setText(Integer.toString(livro.getQuantidadeDisponivel()));
-
+        JButton voltar = new JButton("voltar");
+        voltar.setBounds(10, 420, 50, 20);
+        voltar.setFont(new Font("Arial", Font.BOLD, 10));
+        voltar.setForeground(letra);
+        voltar.setBorder(null);
+        voltar.setBackground(fundobotao);
+        voltar.addActionListener(new ActionListener() {
+          public void actionPerformed(ActionEvent e) {
+          janela25.dispose();
+          abrirjanela21();
+            
+    
+          }
+        });
+        janela25.getContentPane().add(voltar);
         janela25.add(rotuloId);
         janela25.add(campoId);
         janela25.add(rotuloTitulo);
@@ -1817,7 +2069,22 @@ public void abrirjanela27(List<Emprestimo> listaEmprestimos) {
                 }
             }
         });
-
+        JButton voltar = new JButton("voltar");
+        voltar.setBounds(10, 420, 50, 20);
+        voltar.setFont(new Font("Arial", Font.BOLD, 10));
+        voltar.setForeground(letra);
+        voltar.setBorder(null);
+        voltar.setBackground(fundobotao);
+        voltar.addActionListener(new ActionListener() {
+          public void actionPerformed(ActionEvent e) {
+          janela27.dispose();
+          abrirjanela20();
+            
+    
+          }
+        });
+        janela27.getContentPane().add(voltar);
+    
         janela27.add(rotuloSelecao);
         janela27.add(comboBoxLivros);
         janela27.add(botaoDevolver);
@@ -1919,7 +2186,22 @@ public void abrirjanela27(List<Emprestimo> listaEmprestimos) {
         atraso.setText(String.valueOf(emprestimo.calcularDiasAtraso()));
         multa.setText(String.valueOf(emprestimo.calcularMulta()));
         
-
+        JButton voltar = new JButton("voltar");
+        voltar.setBounds(10, 420, 50, 20);
+        voltar.setFont(new Font("Arial", Font.BOLD, 10));
+        voltar.setForeground(letra);
+        voltar.setBorder(null);
+        voltar.setBackground(fundobotao);
+        voltar.addActionListener(new ActionListener() {
+          public void actionPerformed(ActionEvent e) {
+          janela28.dispose();
+          abrirjanela20();
+            
+    
+          }
+        });
+        janela28.getContentPane().add(voltar);
+    
         janela28.add(dataemprestimo);
         janela28.add(dataemprestimo);
         janela28.add(datadevolucao);
@@ -2012,7 +2294,21 @@ public void abrirjanela27(List<Emprestimo> listaEmprestimos) {
                 }
             }
         });
-
+        JButton voltar = new JButton("voltar");
+        voltar.setBounds(10, 420, 50, 20);
+        voltar.setFont(new Font("Arial", Font.BOLD, 10));
+        voltar.setForeground(letra);
+        voltar.setBorder(null);
+        voltar.setBackground(fundobotao);
+        voltar.addActionListener(new ActionListener() {
+          public void actionPerformed(ActionEvent e) {
+          janela30.dispose();
+          abrirjanela13();
+            
+    
+          }
+        });
+        janela30.getContentPane().add(voltar);
         janela30.add(rotuloSelecao);
         janela30.add(comboBoxLivros);
         janela30.add(botao);
@@ -2061,7 +2357,21 @@ public void abrirjanela27(List<Emprestimo> listaEmprestimos) {
                 }
             }
         });
-
+        JButton voltar = new JButton("voltar");
+        voltar.setBounds(10, 420, 50, 20);
+        voltar.setFont(new Font("Arial", Font.BOLD, 10));
+        voltar.setForeground(letra);
+        voltar.setBorder(null);
+        voltar.setBackground(fundobotao);
+        voltar.addActionListener(new ActionListener() {
+          public void actionPerformed(ActionEvent e) {
+          janela31.dispose();
+          abrirjanela21();
+            
+    
+          }
+        });
+        janela31.getContentPane().add(voltar);
         janela31.add(rotuloSelecao);
         janela31.add(comboBoxLivros);
         janela31.add(botao);
