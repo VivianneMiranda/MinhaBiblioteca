@@ -1600,7 +1600,7 @@ public void abrirjanela21() {
     portitulo.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
         janela21.dispose();
-        abrirjanela15();
+        abrirjanela22();
     
       }
     });
@@ -1613,7 +1613,7 @@ public void abrirjanela21() {
     porautor.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
         janela21.dispose();
-        abrirjanela14();
+        abrirjanela23();
         
       }
     });
@@ -1626,7 +1626,7 @@ public void abrirjanela21() {
     porisbn.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
         janela21.dispose();
-        abrirjanela16();
+        abrirjanela24();
         
       }
     });
