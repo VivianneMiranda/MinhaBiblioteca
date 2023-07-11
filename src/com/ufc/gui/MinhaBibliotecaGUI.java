@@ -85,7 +85,7 @@ private String matriculaUsuario;
     entrar.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
       janelaInicial.dispose();
-      abrirjanela2();
+      abrirjanela29();
       
 
       }
@@ -954,8 +954,19 @@ JButton voltar = new JButton("Logout");
     janela13.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     janela13.getContentPane().setBackground(fundojanela);
 
+    JLabel comando = new JLabel("Buscar por:");
+    comando.setFont(new Font("Arial", Font.BOLD, 30));
+    comando.setBounds(20, 80, 500, 100);
+    comando.setForeground(letra);
+
+
+    janela13.add(comando);
+
     JButton portitulo = new JButton("Titulo");
-    portitulo.setBounds(40, 100, 120, 40);
+    portitulo.setBounds(40, 200, 120, 40);
+    portitulo.setForeground(letra);
+    portitulo.setBackground(fundobotao);
+    portitulo.setFont(new Font("Arial", Font.BOLD, 20));
     portitulo.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
         janela13.dispose();
@@ -964,8 +975,12 @@ JButton voltar = new JButton("Logout");
       }
     });
 
+  
     JButton porautor = new JButton("Autor");
-    porautor.setBounds(160, 100, 120, 40);
+    porautor.setBounds(180, 200, 120, 40);
+    porautor.setForeground(letra);
+    porautor.setBackground(fundobotao);
+    porautor.setFont(new Font("Arial", Font.BOLD, 20));
     porautor.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
         janela13.dispose();
@@ -974,8 +989,11 @@ JButton voltar = new JButton("Logout");
       }
     });
 
-   JButton porisbn = new JButton("ISBN");
-    porisbn.setBounds(280, 100, 120, 40);
+   JButton porisbn = new JButton("INBS");
+    porisbn.setBounds(320, 200, 120, 40);
+    porisbn.setForeground(letra);
+    porisbn.setBackground(fundobotao);
+    porisbn.setFont(new Font("Arial", Font.BOLD, 20));
     porisbn.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
         janela13.dispose();
@@ -983,6 +1001,7 @@ JButton voltar = new JButton("Logout");
         
       }
     });
+
     JButton voltar = new JButton("voltar");
     voltar.setBounds(10, 420, 50, 20);
     voltar.setFont(new Font("Arial", Font.BOLD, 10));
@@ -1023,13 +1042,16 @@ JButton voltar = new JButton("Logout");
 
     JLabel rotuloAutor = new JLabel("Autor:");
     rotuloAutor.setFont(new Font("Arial", Font.BOLD, 20));
-    rotuloAutor.setBounds(50, 30, 100, 20);
+    rotuloAutor.setBounds(50, 130, 100, 20);
 
     JTextField campoAutor = new JTextField();
-    campoAutor.setBounds(170, 30, 300, 30);
+    campoAutor.setBounds(120, 130, 300, 30);
 
     JButton botaoBuscar = new JButton("Buscar");
-    botaoBuscar.setBounds(170, 100, 120, 40);
+    botaoBuscar.setBounds(170, 250, 120, 40);
+    botaoBuscar.setForeground(letra);
+    botaoBuscar.setBackground(fundobotao);
+    botaoBuscar.setFont(new Font("Arial", Font.BOLD, 20));
     botaoBuscar.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
         // Verifica se os campos estão preenchidos
@@ -1094,14 +1116,16 @@ JButton voltar = new JButton("Logout");
 
     JLabel rotuloTitulo = new JLabel("Titulo:");
     rotuloTitulo.setFont(new Font("Arial", Font.BOLD, 20));
-    rotuloTitulo.setBounds(50, 30, 100, 20);
+    rotuloTitulo.setBounds(50, 130, 100, 20);
 
     JTextField campoTitulo = new JTextField();
-    campoTitulo.setBounds(150, 30, 300, 30);
+    campoTitulo.setBounds(150, 130, 300, 30);
 
-
-    JButton botaoBuscar = new JButton("Buscar");
-    botaoBuscar.setBounds(150, 100, 120, 40);
+     JButton botaoBuscar = new JButton("Buscar");
+    botaoBuscar.setBounds(170, 250, 120, 40);
+    botaoBuscar.setForeground(letra);
+    botaoBuscar.setBackground(fundobotao);
+    botaoBuscar.setFont(new Font("Arial", Font.BOLD, 20));
     botaoBuscar.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
         // Verifica se os campos estão preenchidos
@@ -1166,14 +1190,17 @@ public void abrirjanela16() {
 
     JLabel rotuloISBN = new JLabel("ISBN:");
     rotuloISBN.setFont(new Font("Arial", Font.BOLD, 20));
-    rotuloISBN.setBounds(50, 30, 100, 20);
+    rotuloISBN.setBounds(50, 130, 100, 20);
 
     JTextField campoISBN = new JTextField();
-    campoISBN.setBounds(150, 30, 300, 30);
+    campoISBN.setBounds(150, 130, 300, 30);
 
 
-    JButton botaoBuscar = new JButton("Buscar");
-    botaoBuscar.setBounds(150, 100, 120, 40);
+     JButton botaoBuscar = new JButton("Buscar");
+    botaoBuscar.setBounds(170, 250, 120, 40);
+    botaoBuscar.setForeground(letra);
+    botaoBuscar.setBackground(fundobotao);
+    botaoBuscar.setFont(new Font("Arial", Font.BOLD, 20));
     botaoBuscar.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
         // Verifica se os campos estão preenchidos
@@ -1238,7 +1265,10 @@ public void abrirjanela16() {
 
 
         JButton remover = new JButton("Remover livro");
-        remover.setBounds(100, 170, 120, 40);
+        remover.setBounds(280, 400, 180, 40);
+        remover.setFont(new Font("Arial", Font.BOLD, 20));
+        remover.setForeground(letra);
+        remover.setBackground(fundobotao);
         remover.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {
 
@@ -1254,77 +1284,48 @@ public void abrirjanela16() {
         }
     });
 
-        JLabel rotuloId = new JLabel("Id:");
-        rotuloId.setFont(new Font("Arial", Font.BOLD, 20));
-        rotuloId.setBounds(50, 30, 100, 20);
+    JLabel rotuloTitulo = new JLabel("Título:");
+    rotuloTitulo.setFont(new Font("Arial", Font.BOLD, 16));
+    rotuloTitulo.setBounds(30, 110, 200, 20);
 
-        JTextField campoId = new JTextField();
-        campoId.setBounds(170, 30, 300, 30);
-        campoId.setEditable(false); // Impede a edição do campo
+    JTextField campoTitulo = new JTextField();
+    campoTitulo.setBounds(220, 110, 250, 30);
 
-        JLabel rotuloTitulo = new JLabel("Título:");
-        rotuloTitulo.setFont(new Font("Arial", Font.BOLD, 20));
-        rotuloTitulo.setBounds(50, 60, 100, 20);
+    JLabel rotuloAutor = new JLabel("Autor:");
+    rotuloAutor.setFont(new Font("Arial", Font.BOLD, 16));
+    rotuloAutor.setBounds(30, 150, 100, 20);
 
-        JTextField campoTitulo = new JTextField();
-        campoTitulo.setBounds(170, 60, 300, 30);
-        campoTitulo.setEditable(false);
+    JTextField campoAutor = new JTextField();
+    campoAutor.setBounds(220, 150, 250, 30);
 
-        JLabel rotuloAutor = new JLabel("Autor:");
-        rotuloAutor.setFont(new Font("Arial", Font.BOLD, 20));
-        rotuloAutor.setBounds(50, 90, 100, 20);
+    JLabel rotuloISBN = new JLabel("ISBN:");
+    rotuloISBN.setFont(new Font("Arial", Font.BOLD, 16));
+    rotuloISBN.setBounds(30, 190, 100, 20);
 
-        JTextField campoAutor = new JTextField();
-        campoAutor.setBounds(170, 90, 300, 30);
-        campoAutor.setEditable(false);
+    JTextField campoISBN = new JTextField();
+    campoISBN.setBounds(220, 190, 250, 30);
 
-        JLabel rotuloISBN = new JLabel("ISBN:");
-        rotuloISBN.setFont(new Font("Arial", Font.BOLD, 20));
-        rotuloISBN.setBounds(50, 120, 100, 20);
+    JLabel rotuloEditora = new JLabel("Editora:");
+    rotuloEditora.setFont(new Font("Arial", Font.BOLD, 16));
+    rotuloEditora.setBounds(30, 230, 100, 20);
 
-        JTextField campoISBN = new JTextField();
-        campoISBN.setBounds(170, 120, 300, 30);
-        campoISBN.setEditable(false);
+    JTextField campoEditora = new JTextField();
+    campoEditora.setBounds(220, 230, 250, 30);
 
-        JLabel rotuloEmail = new JLabel("E-mail:");
-        rotuloEmail.setFont(new Font("Arial", Font.BOLD, 20));
-        rotuloEmail.setBounds(50, 170, 100, 20);
 
-        JTextField campoEmail = new JTextField();
-        campoEmail.setBounds(170, 170, 300, 30);
-        campoEmail.setEditable(false);
+    JLabel rotuloAnoPublicacao = new JLabel("Ano de publicação:");
+    rotuloAnoPublicacao.setFont(new Font("Arial", Font.BOLD, 16));
+    rotuloAnoPublicacao.setBounds(30, 310, 170, 20);
 
-        JLabel rotuloEditora = new JLabel("Editora:");
-        rotuloEditora.setFont(new Font("Arial", Font.BOLD, 20));
-        rotuloEditora.setBounds(50, 180, 100, 20);
+    JTextField campoAnoPublicacao = new JTextField();
+    campoAnoPublicacao.setBounds(220, 310, 250, 30);
 
-        JTextField campoEditora = new JTextField();
-        campoEditora.setBounds(170, 180, 300, 30);
-        campoEditora.setEditable(false);
+    JLabel rotuloQuantidadeDisponivel = new JLabel("Quantidade Disponível:");
+    rotuloQuantidadeDisponivel.setFont(new Font("Arial", Font.BOLD, 16));
+    rotuloQuantidadeDisponivel.setBounds(30, 350, 200, 20);
 
-        JLabel rotuloDataPublicacao = new JLabel("Data de Publicação:");
-        rotuloDataPublicacao.setFont(new Font("Arial", Font.BOLD, 20));
-        rotuloDataPublicacao.setBounds(50, 210, 170, 20);
-
-        JTextField campoDataPublicacao = new JTextField();
-        campoDataPublicacao.setBounds(200, 210, 170, 20);
-        campoDataPublicacao.setEditable(false);
-
-        JLabel rotuloQuantidadeTotal = new JLabel("Quantidade Total:");
-        rotuloQuantidadeTotal.setFont(new Font("Arial", Font.BOLD, 20));
-        rotuloQuantidadeTotal.setBounds(50, 240, 170, 20);
-
-        JTextField campoQuantidadeTotal = new JTextField();
-        campoQuantidadeTotal.setBounds(200, 240, 170, 20);
-        campoQuantidadeTotal.setEditable(false);
-
-        JLabel rotuloQuantidadeDisponivel = new JLabel("Quantidade Disponível:");
-        rotuloQuantidadeDisponivel.setFont(new Font("Arial", Font.BOLD, 20));
-        rotuloQuantidadeDisponivel.setBounds(50, 270, 170, 20);
-
-        JTextField campoQuantidadeDisponivel = new JTextField();
-        campoQuantidadeDisponivel.setBounds(200, 270, 170, 20);
-        campoQuantidadeDisponivel.setEditable(false);
+    JTextField campoQuantidadeDisponivel = new JTextField();
+    campoQuantidadeDisponivel.setBounds(220, 350, 250, 30);
 
         // Definir valores dos campos de texto
         /* campoId.setText("ID"); */
@@ -1333,9 +1334,11 @@ public void abrirjanela16() {
         campoISBN.setText(livro.getISBN());
         /* campoEmail.setText("exemplo@email.com"); */
         campoEditora.setText(livro.getEditora());
-        campoDataPublicacao.setText(String.valueOf(livro.getAnoPublicacao()));
+        campoAnoPublicacao.setText(String.valueOf(livro.getAnoPublicacao()));
         /* campoQuantidadeTotal.setText(livro.get); */
         campoQuantidadeDisponivel.setText(String.valueOf(livro.getQuantidadeDisponivel()));
+
+
         JButton voltar = new JButton("voltar");
         voltar.setBounds(10, 420, 50, 20);
         voltar.setFont(new Font("Arial", Font.BOLD, 10));
@@ -1351,22 +1354,17 @@ public void abrirjanela16() {
           }
         });
         janela17.getContentPane().add(voltar);
-        janela17.add(rotuloId);
-        janela17.add(campoId);
+        
         janela17.add(rotuloTitulo);
         janela17.add(campoTitulo);
         janela17.add(rotuloAutor);
         janela17.add(campoAutor);
         janela17.add(rotuloISBN);
         janela17.add(campoISBN);
-        janela17.add(rotuloEmail);
-        janela17.add(campoEmail);
+        
         janela17.add(rotuloEditora);
         janela17.add(campoEditora);
-        janela17.add(rotuloDataPublicacao);
-        janela17.add(campoDataPublicacao);
-        janela17.add(rotuloQuantidadeTotal);
-        janela17.add(campoQuantidadeTotal);
+        
         janela17.add(rotuloQuantidadeDisponivel);
         janela17.add(campoQuantidadeDisponivel);
         janela17.getContentPane().add(remover);
@@ -1388,13 +1386,16 @@ public void abrirjanela16() {
     janela18.getContentPane().setBackground(fundojanela);
 
     JLabel mensagem = new JLabel("Livro removido com sucesso!");
-    mensagem.setFont(new Font("Arial", Font.BOLD, 20));
-    mensagem.setBounds(50, 50, 300, 100);
-
+    mensagem.setFont(new Font("Arial", Font.BOLD, 28));
+    mensagem.setBounds(40, 120, 500, 100);
+    mensagem.setForeground(letra);
     janela18.add(mensagem);
 
     JButton botaoacervofuncionarios = new JButton("Clique aqui para ser redirecionado ao acervo de funcionarios");
-    botaoacervofuncionarios.setBounds(100, 170, 120, 40);
+    botaoacervofuncionarios.setBounds(0, 220, 490, 30);
+    botaoacervofuncionarios.setForeground(letra);
+    botaoacervofuncionarios.setBackground(fundobotao);
+    botaoacervofuncionarios.setFont(new Font("Arial", Font.BOLD, 15));
     botaoacervofuncionarios.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
 
@@ -1423,20 +1424,23 @@ public void abrirjanela16() {
 
     JLabel rotuloMatricula = new JLabel("Matrícula:");
     rotuloMatricula.setFont(new Font("Arial", Font.BOLD, 20));
-    rotuloMatricula.setBounds(50, 30, 100, 20);
+    rotuloMatricula.setBounds(40, 140, 100, 20);
 
     JTextField campoMatricula = new JTextField();
-    campoMatricula.setBounds(170, 30, 300, 30);
+    campoMatricula.setBounds(160, 140, 300, 30);
 
     JLabel rotuloSenha = new JLabel("Senha:");
     rotuloSenha.setFont(new Font("Arial", Font.BOLD, 20));
-    rotuloSenha.setBounds(50, 60, 100, 20);
+    rotuloSenha.setBounds(40, 190, 100, 20);
 
     JPasswordField campoSenha = new JPasswordField();
-    campoSenha.setBounds(170, 60, 300, 30);
+    campoSenha.setBounds(160, 190, 300, 30);
 
     JButton botaoLogin = new JButton("Login");
-    botaoLogin.setBounds(170, 100, 120, 40);
+    botaoLogin.setBounds(280, 320, 150, 40);
+    botaoLogin.setForeground(letra);
+    botaoLogin.setBackground(fundobotao);
+    botaoLogin.setFont(new Font("Arial", Font.BOLD, 20));
     botaoLogin.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
         // Verifica se os campos estão preenchidos
@@ -1506,13 +1510,17 @@ public void abrirjanela16() {
 
 
     JLabel comando = new JLabel("Acervo de alunos");
-    comando.setFont(new Font("Arial", Font.BOLD, 20));
-    comando.setBounds(50, 50, 300, 100);
+    comando.setFont(new Font("Arial", Font.BOLD, 40));
+    comando.setBounds(70, 80, 500, 100);
+    comando.setForeground(letra);
 
     janela20.add(comando);
 
     JButton buscar = new JButton("Buscar livro");
-    buscar.setBounds(10, 100, 130, 30);
+    buscar.setBounds(250, 200, 180, 40);
+    buscar.setForeground(letra);
+    buscar.setBackground(fundobotao);
+    buscar.setFont(new Font("Arial", Font.BOLD, 20));
     buscar.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
         janela20.dispose();
@@ -1521,7 +1529,10 @@ public void abrirjanela16() {
     });
 
     JButton devolver = new JButton("Devolver livro");
-    devolver.setBounds(160, 100, 130, 30);
+    devolver.setBounds(50, 200, 180, 40);
+    devolver.setForeground(letra);
+    devolver.setBackground(fundobotao);
+    devolver.setFont(new Font("Arial", Font.BOLD, 20));
     devolver.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
         
@@ -1573,32 +1584,49 @@ public void abrirjanela21() {
     janela21.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     janela21.getContentPane().setBackground(fundojanela);
 
+    JLabel comando = new JLabel("Buscar por:");
+    comando.setFont(new Font("Arial", Font.BOLD, 30));
+    comando.setBounds(20, 80, 500, 100);
+    comando.setForeground(letra);
+
+
+    janela21.add(comando);
+
     JButton portitulo = new JButton("Titulo");
-    portitulo.setBounds(40, 100, 120, 40);
+    portitulo.setBounds(40, 200, 120, 40);
+    portitulo.setForeground(letra);
+    portitulo.setBackground(fundobotao);
+    portitulo.setFont(new Font("Arial", Font.BOLD, 20));
     portitulo.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
         janela21.dispose();
-        abrirjanela22();
+        abrirjanela15();
     
       }
     });
 
     JButton porautor = new JButton("Autor");
-    porautor.setBounds(160, 100, 120, 40);
+    porautor.setBounds(180, 200, 120, 40);
+    porautor.setForeground(letra);
+    porautor.setBackground(fundobotao);
+    porautor.setFont(new Font("Arial", Font.BOLD, 20));
     porautor.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
         janela21.dispose();
-        abrirjanela23();
+        abrirjanela14();
         
       }
     });
 
-   JButton porisbn = new JButton("ISBN");
-    porisbn.setBounds(280, 100, 120, 40);
+    JButton porisbn = new JButton("INBS");
+    porisbn.setBounds(320, 200, 120, 40);
+    porisbn.setForeground(letra);
+    porisbn.setBackground(fundobotao);
+    porisbn.setFont(new Font("Arial", Font.BOLD, 20));
     porisbn.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
         janela21.dispose();
-        abrirjanela24();
+        abrirjanela16();
         
       }
     });
@@ -1639,14 +1667,13 @@ public void abrirjanela21() {
 
     JLabel rotuloTitulo = new JLabel("Titulo:");
     rotuloTitulo.setFont(new Font("Arial", Font.BOLD, 20));
-    rotuloTitulo.setBounds(50, 30, 100, 20);
+    rotuloTitulo.setBounds(50, 130, 100, 20);
 
     JTextField campoTitulo = new JTextField();
-    campoTitulo.setBounds(150, 30, 300, 30);
+    campoTitulo.setBounds(150, 130, 300, 30);
 
-
-    JButton botaoBuscar = new JButton("Buscar");
-    botaoBuscar.setBounds(150, 100, 120, 40);
+     JButton botaoBuscar = new JButton("Buscar");
+    botaoBuscar.setBounds(170, 250, 120, 40);
     botaoBuscar.setForeground(letra);
     botaoBuscar.setBackground(fundobotao);
     botaoBuscar.setFont(new Font("Arial", Font.BOLD, 20));
@@ -1718,10 +1745,10 @@ public void abrirjanela23() {
 
     JLabel rotuloAutor = new JLabel("Autor:");
     rotuloAutor.setFont(new Font("Arial", Font.BOLD, 20));
-    rotuloAutor.setBounds(50, 30, 100, 20);
+    rotuloAutor.setBounds(50, 130, 100, 20);
 
     JTextField campoAutor = new JTextField();
-    campoAutor.setBounds(170, 30, 300, 30);
+    campoAutor.setBounds(120, 130, 300, 30);
 
     JButton botaoBuscar = new JButton("Buscar");
     botaoBuscar.setBounds(170, 250, 120, 40);
@@ -1789,13 +1816,13 @@ public void abrirjanela23() {
 
     JLabel rotuloISBN = new JLabel("ISBN:");
     rotuloISBN.setFont(new Font("Arial", Font.BOLD, 20));
-    rotuloISBN.setBounds(50, 30, 100, 20);
+    rotuloISBN.setBounds(50, 130, 100, 20);
 
     JTextField campoISBN = new JTextField();
-    campoISBN.setBounds(150, 30, 300, 30);
+    campoISBN.setBounds(150, 130, 300, 30);
 
 
-    JButton botaoBuscar = new JButton("Buscar");
+     JButton botaoBuscar = new JButton("Buscar");
     botaoBuscar.setBounds(170, 250, 120, 40);
     botaoBuscar.setForeground(letra);
     botaoBuscar.setBackground(fundobotao);
@@ -1884,76 +1911,54 @@ public void abrirjanela23() {
         }
     });
 
-        JLabel rotuloId = new JLabel("Id:");
-        rotuloId.setFont(new Font("Arial", Font.BOLD, 20));
-        rotuloId.setBounds(50, 30, 100, 20);
+       
 
-        JTextField campoId = new JTextField();
-        campoId.setBounds(170, 30, 300, 30);
-        campoId.setEditable(false); // Impede a edição do campo
+    JLabel rotuloTitulo = new JLabel("Título:");
+    rotuloTitulo.setFont(new Font("Arial", Font.BOLD, 16));
+    rotuloTitulo.setBounds(30, 110, 200, 20);
 
-        JLabel rotuloTitulo = new JLabel("Título:");
-        rotuloTitulo.setFont(new Font("Arial", Font.BOLD, 20));
-        rotuloTitulo.setBounds(50, 60, 100, 20);
-
-        JTextField campoTitulo = new JTextField();
-        campoTitulo.setBounds(170, 60, 300, 30);
+    JTextField campoTitulo = new JTextField();
+    campoTitulo.setBounds(220, 110, 250, 30);
         campoTitulo.setEditable(false);
 
         JLabel rotuloAutor = new JLabel("Autor:");
-        rotuloAutor.setFont(new Font("Arial", Font.BOLD, 20));
-        rotuloAutor.setBounds(50, 90, 100, 20);
+        rotuloAutor.setFont(new Font("Arial", Font.BOLD, 16));
+        rotuloAutor.setBounds(30, 150, 100, 20);
 
         JTextField campoAutor = new JTextField();
-        campoAutor.setBounds(170, 90, 300, 30);
+        campoAutor.setBounds(220, 150, 250, 30);
         campoAutor.setEditable(false);
 
         JLabel rotuloISBN = new JLabel("ISBN:");
-        rotuloISBN.setFont(new Font("Arial", Font.BOLD, 20));
-        rotuloISBN.setBounds(50, 120, 100, 20);
+        rotuloISBN.setFont(new Font("Arial", Font.BOLD, 16));
+        rotuloISBN.setBounds(30, 190, 100, 20);
 
         JTextField campoISBN = new JTextField();
-        campoISBN.setBounds(170, 120, 300, 30);
+        campoISBN.setBounds(220, 190, 250, 30);
         campoISBN.setEditable(false);
 
-        JLabel rotuloEmail = new JLabel("E-mail:");
-        rotuloEmail.setFont(new Font("Arial", Font.BOLD, 20));
-        rotuloEmail.setBounds(50, 170, 100, 20);
-
-        JTextField campoEmail = new JTextField();
-        campoEmail.setBounds(170, 170, 300, 30);
-        campoEmail.setEditable(false);
-
         JLabel rotuloEditora = new JLabel("Editora:");
-        rotuloEditora.setFont(new Font("Arial", Font.BOLD, 20));
-        rotuloEditora.setBounds(50, 180, 100, 20);
+        rotuloEditora.setFont(new Font("Arial", Font.BOLD, 16));
+        rotuloEditora.setBounds(30, 230, 100, 20);
 
         JTextField campoEditora = new JTextField();
-        campoEditora.setBounds(170, 180, 300, 30);
+        campoEditora.setBounds(220, 230, 250, 30);
         campoEditora.setEditable(false);
 
-        JLabel rotuloDataPublicacao = new JLabel("Data de Publicação:");
-        rotuloDataPublicacao.setFont(new Font("Arial", Font.BOLD, 20));
-        rotuloDataPublicacao.setBounds(50, 210, 170, 20);
+        JLabel rotuloAnoPublicacao = new JLabel("Ano de publicação:");
+        rotuloAnoPublicacao.setFont(new Font("Arial", Font.BOLD, 16));
+        rotuloAnoPublicacao.setBounds(30, 270, 170, 20);
 
-        JTextField campoDataPublicacao = new JTextField();
-        campoDataPublicacao.setBounds(200, 210, 170, 20);
-        campoDataPublicacao.setEditable(false);
-
-        JLabel rotuloQuantidadeTotal = new JLabel("Quantidade Total:");
-        rotuloQuantidadeTotal.setFont(new Font("Arial", Font.BOLD, 20));
-        rotuloQuantidadeTotal.setBounds(50, 240, 170, 20);
-
-        JTextField campoQuantidadeTotal = new JTextField();
-        campoQuantidadeTotal.setBounds(200, 240, 170, 20);
-        campoQuantidadeTotal.setEditable(false);
+        JTextField campoAnoPublicacao = new JTextField();
+        campoAnoPublicacao.setBounds(220, 270, 250, 30);
+        campoAnoPublicacao.setEditable(false);
 
         JLabel rotuloQuantidadeDisponivel = new JLabel("Quantidade Disponível:");
-        rotuloQuantidadeDisponivel.setFont(new Font("Arial", Font.BOLD, 20));
-        rotuloQuantidadeDisponivel.setBounds(50, 270, 170, 20);
+        rotuloQuantidadeDisponivel.setFont(new Font("Arial", Font.BOLD, 16));
+        rotuloQuantidadeDisponivel.setBounds(30, 310, 200, 20);
 
         JTextField campoQuantidadeDisponivel = new JTextField();
-        campoQuantidadeDisponivel.setBounds(200, 270, 170, 20);
+        campoQuantidadeDisponivel.setBounds(220, 310, 250, 30);
         campoQuantidadeDisponivel.setEditable(false);
 
         // Definir valores dos campos de texto
@@ -1963,7 +1968,7 @@ public void abrirjanela23() {
         campoISBN.setText(livro.getISBN());
         /* campoEmail.setText(livro.get); */
         campoEditora.setText(livro.getEditora());
-        campoDataPublicacao.setText(Integer.toString(livro.getAnoPublicacao()));
+        campoAnoPublicacao.setText(Integer.toString(livro.getAnoPublicacao()));
 /*         campoQuantidadeTotal.setText("10"); */
         campoQuantidadeDisponivel.setText(Integer.toString(livro.getQuantidadeDisponivel()));
         JButton voltar = new JButton("voltar");
@@ -1981,22 +1986,17 @@ public void abrirjanela23() {
           }
         });
         janela25.getContentPane().add(voltar);
-        janela25.add(rotuloId);
-        janela25.add(campoId);
+      
         janela25.add(rotuloTitulo);
         janela25.add(campoTitulo);
         janela25.add(rotuloAutor);
         janela25.add(campoAutor);
         janela25.add(rotuloISBN);
         janela25.add(campoISBN);
-        janela25.add(rotuloEmail);
-        janela25.add(campoEmail);
+        
         janela25.add(rotuloEditora);
         janela25.add(campoEditora);
-        janela25.add(rotuloDataPublicacao);
-        janela25.add(campoDataPublicacao);
-        janela25.add(rotuloQuantidadeTotal);
-        janela25.add(campoQuantidadeTotal);
+        
         janela25.add(rotuloQuantidadeDisponivel);
         janela25.add(campoQuantidadeDisponivel);
         janela25.getContentPane().add(remover);
@@ -2016,8 +2016,9 @@ public void abrirjanela23() {
     janela26.getContentPane().setBackground(fundojanela);
 
     JLabel mensagem = new JLabel("Livro emprestado com sucesso!");
-    mensagem.setFont(new Font("Arial", Font.BOLD, 20));
-    mensagem.setBounds(50, 50, 300, 100);
+    mensagem.setFont(new Font("Arial", Font.BOLD, 28));
+    mensagem.setBounds(40, 120, 500, 100);
+    mensagem.setForeground(letra);
 
     janela26.add(mensagem);
 
@@ -2060,10 +2061,10 @@ public void abrirjanela27(List<Emprestimo> listaEmprestimos) {
 
         JLabel rotuloSelecao = new JLabel("Selecione o livro a ser devolvido:");
         rotuloSelecao.setFont(new Font("Arial", Font.BOLD, 20));
-        rotuloSelecao.setBounds(50, 30, 300, 30);
+        rotuloSelecao.setBounds(120, 90, 300, 30);
 
         JComboBox<String> comboBoxLivros = new JComboBox<String>();
-        comboBoxLivros.setBounds(50, 60, 300, 20);
+        comboBoxLivros.setBounds(100, 140, 300, 30);
         for (Emprestimo emprestimo : listaEmprestimos) {
           comboBoxLivros.addItem(emprestimo.getLivro().getTitulo());
         }
@@ -2410,7 +2411,7 @@ public void abrirjanela27(List<Emprestimo> listaEmprestimos) {
         janela31.setVisible(true);
       }
 
- /*  public static void main(String[] args) {
+ public static void main(String[] args) {
     SwingUtilities.invokeLater(() -> new MinhaBibliotecaGUI());
-  } */
+  }
 }
