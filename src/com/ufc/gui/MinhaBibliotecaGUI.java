@@ -85,7 +85,7 @@ private String matriculaUsuario;
     entrar.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
       janelaInicial.dispose();
-      abrirjanela29();
+      abrirjanela2();
       
 
       }
