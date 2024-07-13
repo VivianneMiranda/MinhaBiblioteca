@@ -23,9 +23,9 @@ quantidade de cada um no acervo e listar todos os usuários cadastrados.
 
 ## 🚀 Equipe
 
-- Adauta Costa Aragão Freire - 535691
-- Guilherme Beserra Santiago - 538660
-- Vivianne Chaves de Miranda - 510927
+- Adauta Costa Aragão Freire
+- Guilherme Beserra Santiago 
+- Vivianne Chaves de Miranda 
 
 ---
 Projeto desenvolvido para a disciplina de Programação Orientada a Objetos.
